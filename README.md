@@ -27,3 +27,7 @@
 7 - passo - Executar o projeto
 
 - python manage.py runserver
+
+
+## Modelagem de Dados
+![Modelagem](https://github.com/Patryck1999/Projeto_Medline/blob/master/Medline.png)
