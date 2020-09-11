@@ -6,5 +6,5 @@
 	- . ./nome_da_virtualenv/Scripts/activate
 
 
-3 - Passo - Instalar as dependencias na raiz do projeto com requirements.txt
+3 - Passo - *Instalar as dependencias na raiz do projeto com requirements.txt*
   - pip install -r requirements.txt
