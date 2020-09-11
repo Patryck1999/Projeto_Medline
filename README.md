@@ -26,4 +26,4 @@
 
 7 - passo - Executar o projeto
 
-- Python manage.py runserver
+- python manage.py runserver
