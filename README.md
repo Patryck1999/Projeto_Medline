@@ -16,7 +16,7 @@
   - pip install -r requirements.txt
 
 
-4 - Passo - Fazer as migrações da tabela
+4 - Passo - Fazer as migrações das tabelas
 - python manage.py makemigrations
 
 5 - Passo - Aplicar as migrações
