@@ -1,6 +1,6 @@
 # Projeto_Medline
 
-Instruções basicas para iniciar rodar o projeto:
+Instruções basicas para rodar o projeto:
 
 1 - Passo - *Criar VirtualEnv*
 
