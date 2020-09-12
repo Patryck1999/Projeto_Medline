@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'consulta.apps.ConsultaConfig',
+
+    'django_filters',
 ]
 
 MIDDLEWARE = [

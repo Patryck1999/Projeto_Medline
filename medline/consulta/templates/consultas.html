@@ -1,18 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <h1>Consultas</h1>
-    <div class="row">
-        <div class="col-lg-4">
-            <p>Especialidade</p>
-        </div>
-        <div class="col-lg-4">
-            <p>Cidade</p>
-        </div>
-        <div class="col-lg-4">
-            <p>Convênio </p>
-            
-        </div>
+    <!-- <h1>Consultas</h1>
+    <form method="get">
+                <p>Especialidade:</p>
+                {{filtro_especialidade.form.especialidade}}
+                <button class="btn btn-primary" type="submit">Filtrar</button>
+    </form>
+    
+    <ul>
+    {% for especialidade in especialidades %}
+        <li>{{especialidade.especialidade}} - {{especialidade.cbo}} </li>
+    {% endfor %}
+    </ul>
 
+    {% for m_e in medicos_especialidade %}
+    <div class="col-lg-4">
+    <img class="thumbnail" src="{{m_e.id_medico.foto.url}}"><li>{{m_e.id_medico}} - {{m_e.id_especialidade}}</li>
     </div>
+{% endfor %}
+</ul> -->
+
 {% endblock content %}

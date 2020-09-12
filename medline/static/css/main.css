@@ -1,0 +1,133 @@
+:root{
+	--color-background: #00D3FF;
+	--color-background-button: #FFFFFF;
+	--color-background-button-login: #4867FF;
+	--color-text: #414B82;
+	
+
+	font-size: 60%;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html,body {
+    height: 100vh;
+}
+body {
+    background-color: var(--color-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-bar{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+a.entrar, a.cadastrar {	
+	color: #FFFFFF;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	font-size: 2.1rem;
+	text-decoration: none;
+	border-radius: 10px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 200px;
+	height: 35px;
+	background: var(--color-background-button-login);
+
+	margin: 10px;
+}
+
+div.apresentation{
+	display: flex;
+	flex-direction: row;
+	padding: 20px;
+}
+div.apresentation-content{
+	padding: 0px 20px 0px 0px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+h1, h3 {
+	color: var(--color-text);
+	font-family: 'Roboto', sans-serif;
+}
+h1 {
+	font-size: 5rem;
+}
+h3 {
+	font-size: 2rem;
+	font-weight: 400;
+}
+img.doctor{
+	width: 240px;
+	height: 300px;
+}
+
+div.option{
+	margin: 5px 10px 20px 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+}
+a.option-confira {
+	color: var(--color-text);
+	font-family: 'Roboto', sans-serif;
+	font-weight: 700;
+	font-size: 1.95rem;
+	text-decoration: none;
+
+	-webkit-box-shadow: -1px 13px 22px 6px #414B82;
+	-moz-box-shadow: -1px 13px 22px 6px #414B82;
+	box-shadow: -1px 13px 22px 6px #414B82;
+	border-radius: 8px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 550px;
+	height: 40px;
+	background: var(--color-background-button);
+
+}
+
+
+img.image-destaque {
+	width: 110px;
+	height: 110px;
+}
+
+p.text-content{
+	color: var(--color-text);
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	font-size: 1.7rem;
+
+	padding: 2px;
+}
+
+div.variedades {
+	display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 170px));
+    grid-template-rows: 150px;
+    justify-content: center;
+    align-items: center;
+}
+div.row {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}

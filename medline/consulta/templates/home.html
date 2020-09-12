@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<title>Medline - Home</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div class="Home">
+		<div class="nav-bar">
+			<a class="entrar" href="#">Entre</a>
+			<a class="cadastrar" href="#">Cadastre-se</a>
+		</div>
+		<div class="container">
+			<div class="apresentation">
+				<div class="apresentation-content">
+					<h1>Medline</h1>
+					<h3>O Marketplace de consultas médicas</h1>
+				</div>
+				<div class="apresentation-image">
+					<img class="doctor" src="{% static 'imagens/doctor.png' %}" alt="doctor-online">
+				</div>
+			</div>
+			<div class="option">
+				<a class="option-confira" href="{% url 'consultas'%}">Confira agora mesmo!</a>
+			</div>
+			<div class="variedades">
+				<div class="row">
+					<img class="image-destaque" src="{% static 'imagens/custo_baixo.png' %}">
+					<p class="text-content">Baixo custo</p>
+				</div>
+				<div class="row">
+					<img class="image-destaque" src="{% static 'imagens/especialidades.png' %}">
+					<p class="text-content">Médicos especialistas</p>
+				</div>
+				<div class="row">
+					<img class="image-destaque" src="{% static 'imagens/carrinho.png' %}">
+					<p class="text-content">Marketplace</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
