@@ -3,11 +3,10 @@ from django.contrib import admin
 from .models import *
 
 # Register your models here.
-admin.site.register(tipos_usuario)
-admin.site.register(pacientes)
-admin.site.register(medicos)
-admin.site.register(especialidades)
-admin.site.register(medicos_especialidade)
-admin.site.register(compras)
-admin.site.register(consultas)
-admin.site.register(compras_consulta)
+admin.site.register(Pacientes)
+admin.site.register(Medicos)
+admin.site.register(Especialidades)
+admin.site.register(Medicos_especialidade)
+admin.site.register(Compras)
+admin.site.register(Consultas)
+admin.site.register(Compras_consulta)

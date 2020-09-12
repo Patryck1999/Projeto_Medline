@@ -3,41 +3,61 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class tipos_usuario(models.Model):
-    tipos = [('Medico','Medico'),('Cliente', 'Cliente'),]
+class Pacientes(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    nome_completo = models.CharField(max_length=100, null=True)
+    data_nascimento = models.DateTimeField(auto_now_add=True)
+    email = models.EmailField(max_length=200, null=True)
+    cpf = models.CharField(max_length=14, null=True)
+    tipos = [('Paciente', 'Paciente'),]
     tipo = models.CharField(max_length=30,choices=tipos)
 
-class pacientes(models.Model):
-    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, blank=True, )
-    nome_completo = models.CharField(max_length=100, null=True, blank=True)
-    data_nascimento = models.DateTimeField(auto_now_add=True)
-    email = models.EmailField(max_length=200, null=True, blank=True)
-    cpf = models.CharField(max_length=14, null=True, blank=True)
-    tipo = models.ForeignKey(tipos_usuario, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.nome_completo
 
-class medicos(models.Model):
-    nome_completo = models.CharField(max_length=100, null=True, blank=True)
+class Medicos(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    nome_completo = models.CharField(max_length=100, null=True)
     data_nascimento = models.DateTimeField(auto_now_add=True)
-    email = models.EmailField(max_length=200, null=True, blank=True)
-    cpf = models.CharField(max_length=14, null=True, blank=True)
+    email = models.EmailField(max_length=200, null=True)
+    cpf = models.CharField(max_length=14, null=True)
     crm = models.CharField(max_length=20, null=True)
-    certificado_especialidade = models.FileField()
-    id_tipo = models.ForeignKey(tipos_usuario, on_delete=models.CASCADE)
+    tipos = [('Medico','Medico')]
+    tipo = models.CharField(max_length=30,choices=tipos)
 
-class especialidades(models.Model):
+    def __str__(self):
+        return self.nome_completo
+
+class Especialidades(models.Model):
     especialidade = models.CharField(max_length=50, null=True, blank=True)
 
-class medicos_especialidade(models.Model):
-    id_medico = models.ForeignKey(medicos, on_delete=models.SET_NULL, null=True)
-    id_especialidade = models.ForeignKey(especialidades, on_delete=models.SET_NULL, null=True)
+    def __str__(self):
+        return self.especialidade
 
-class compras(models.Model):
-    id_paciente = models.ForeignKey(pacientes, on_delete=models.SET_NULL, null=True)
+class Medicos_especialidade(models.Model):
+    id_medico = models.ForeignKey(Medicos, on_delete=models.SET_NULL, null=True)
+    id_especialidade = models.ForeignKey(Especialidades, on_delete=models.SET_NULL, null=True)
+    certificado_especialidade = models.ImageField(null=True, blank=True)
+
+    def __str__(self):
+        return str(self.id)
+
+class Compras(models.Model):
+    id_paciente = models.ForeignKey(Pacientes, on_delete=models.SET_NULL, null=True)
     data_emissao = models.DateTimeField(auto_now_add=True)
 
-class consultas(models.Model):
-    id_medicos_especialidade = models.ForeignKey(medicos_especialidade, on_delete=models.SET_NULL, null=True)
+    def __str__(self):
+        return str(self.id)
 
-class compras_consulta(models.Model):
-    id_compra = models.ForeignKey(compras, on_delete=models.SET_NULL, null=True)
-    id_consulta = models.ForeignKey(consultas, on_delete=models.SET_NULL, null=True)
+class Consultas(models.Model):
+    id_medicos_especialidade = models.ForeignKey(Medicos_especialidade, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return str(self.id)
+
+class Compras_consulta(models.Model):
+    id_compra = models.ForeignKey(Compras, on_delete=models.SET_NULL, null=True)
+    id_consulta = models.ForeignKey(Consultas, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return str(self.id)
