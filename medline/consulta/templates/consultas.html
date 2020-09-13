@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
-    <!-- <h1>Consultas</h1>
+{% block main %}
+    <h1>Consultas</h1>
     <form method="get">
                 <p>Especialidade:</p>
                 {{filtro_especialidade.form.especialidade}}
@@ -19,6 +19,6 @@
     <img class="thumbnail" src="{{m_e.id_medico.foto.url}}"><li>{{m_e.id_medico}} - {{m_e.id_especialidade}}</li>
     </div>
 {% endfor %}
-</ul> -->
+</ul>
 
-{% endblock content %}
+{% endblock main %}
