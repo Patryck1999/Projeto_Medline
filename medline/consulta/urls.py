@@ -1,7 +1,9 @@
 from django.urls import path
-from . import views
+from consulta import views
 
 urlpatterns =[
+    path('login', views.login_request, name="login"),
+    path('logout/', views.logout_request, name='logout'),
     path('', views.home, name="home"),
-    path('consultas/', views.consultas, name="consultas")
+    path('consultas/', views.consultas, name="consultas"),
 ]
