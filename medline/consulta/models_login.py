@@ -9,7 +9,7 @@ from django.utils import timezone
 from django.core.mail import send_mail
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser
-from django.contrib.auth.models import BaseUserManager # PermissionsMixin
+from django.contrib.auth.models import BaseUserManager, PermissionsMixin
 
 
 class UserManager(BaseUserManager):
@@ -19,26 +19,38 @@ class UserManager(BaseUserManager):
         if not username:
             raise ValueError(_('The given username must be set'))
         username = self.model.normalize_username(username)
-        user = self.model(username=username, is_staff=True,
-                          is_active=True, is_superuser=True,
+        user = self.model(username=username,
                           last_login=now, date_joined=now,
                           **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_user(self, username, password=None, **extra_fields):
+    def create_user(self, username, password, **extra_fields):
         return self._create_user(username, password, **extra_fields)
 
     def create_superuser(self, username, password, **extra_fields):
-        user = self._create_user(username, password, **extra_fields)
-        user.is_active = True
+        user = self._create_user(username, password,
+                                 is_staff=True, is_admin=True, is_superuser=True,
+                                 **extra_fields)
         user.save(using=self._db)
         return user
 
 
-class User(AbstractBaseUser): # PermissionsMixin
+class Role(models.Model):
+    ROLE_CHOICES = (
+        ('paciente', 'paciente'),
+        ('medico', 'medico'),
+    )
+    role = models.CharField(max_length=15, choices=ROLE_CHOICES)
 
+    def __str__(self):
+        return self.role
+
+
+class User(AbstractBaseUser, PermissionsMixin):
+
+    role = models.ForeignKey(Role, on_delete=models.CASCADE, blank=True, null=True)
     username = models.CharField(_('username'), max_length=15, unique=True,
                                 null=False, blank=False)
     password = models.CharField(_('password'), max_length=128)
@@ -53,14 +65,16 @@ class User(AbstractBaseUser): # PermissionsMixin
                                               _('Enter a valid e-mail'),
                                               _('invalid'))],
                               null=False, blank=False)
-    is_staff = models.BooleanField(_('status'), default=False)
     is_active = models.BooleanField(_('active'), default=True)
+    is_staff = models.BooleanField(_('staff'), default=False)
+    is_admin = models.BooleanField(_('admin'), default=False)
+    is_superuser = models.BooleanField(_('superuser'), default=False)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+
+    objects = UserManager()
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
-
-    objects = UserManager()
 
     class Meta:
         verbose_name = _('user')

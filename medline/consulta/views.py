@@ -19,9 +19,9 @@ def login_request(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return redirect('home')
+            return redirect('consultas')
     context['form'] = form
-    return render(request, 'consulta/home.html', context)
+    return render(request, 'login.html', context)
 
 
 def logout_request(request):
