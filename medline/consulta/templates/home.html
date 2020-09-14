@@ -1,15 +1,14 @@
-{% extends 'base.html' %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 
-	{% block links %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-
-	{% endblock %}
-
-
-{% block title %} Medline - Home {% endblock %}
-
-{% block main %}
+</head>
+<body>
 <div class="container">
 	<div class="Home">
 		<div class="nav-bar">
@@ -46,4 +45,5 @@
 		</div>
 	</div>
 </div>
-{% endblock main %}
+</body>
+</html>
