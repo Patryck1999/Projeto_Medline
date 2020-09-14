@@ -14,7 +14,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
     {% block links %} {% endblock %}
+    <script type="text/javascript">
+        var user = '{{ request.user }}'
 
+        function getToken(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getToken('csrftoken');
+    </script>
     {% block scripts %} {% endblock %}
 
     <title>{% block title %} {% endblock %}</title>
@@ -36,10 +55,10 @@
                         <a class="nav-link" href="{% url 'consultas' %}">Consultas<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'consultas' %}">Especialidades <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{% url 'especialidades' %}">Especialidades <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'consultas' %}">Cidades <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{% url 'cidades' %}">Cidades <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
                 <div class="form-inline my-2 my-lg-0">
@@ -47,7 +66,7 @@
                     <a href="{% url 'carrinho' %}">
                         <img id="cart-icon" src="{% static 'imagens/cart.png' %}">
                     </a>
-                    <p id="cart-total">0</p>
+                    <p id="cart-total">{{ cartItems }}</p>
                 </div>
             </div><!--/Collapse-->
 

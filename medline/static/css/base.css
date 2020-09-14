@@ -83,11 +83,10 @@ h1,h2,h3,h4,h5,h6{
 	font-weight: 700;
 	padding-right:10px;
 	
-
 }
 
 .chg-quantity{
-	width: 12px;
+	width: 20px;
 	cursor: pointer;
 	display: block;
 	margin-top: 5px;
@@ -105,5 +104,12 @@ h1,h2,h3,h4,h5,h6{
 
 form{
 	margin-top: 10px;
+
+}
+
+.itens_consulta{
+	flex: 2;
+	display: flex;
+	align-items: center;
 
 }

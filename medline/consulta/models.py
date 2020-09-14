@@ -168,7 +168,7 @@ class Agendas(models.Model):
     hora = models.TimeField()
 
     def __str__(self):
-        return str(self.id)
+        return str(self.data) + ' ' + str(self.hora)
 
     class Meta:
         verbose_name = 'Agenda'
@@ -212,6 +212,18 @@ class Compras(models.Model):
     def __str__(self):
         return str(self.id)
     
+
+    def get_cart_total(self):
+        comprasitems = self.compras_consulta_set.all()
+        total = sum([item.get_total for item in comprasitems])
+        return total
+
+    @property
+    def get_cart_items(self):
+        comprasitems = self.compras_consulta_set.all()
+        total = sum([item.quantity for item in comprasitems])
+        return total
+
     class Meta:
         verbose_name = 'Compra'
         verbose_name_plural = 'Compras'
@@ -226,6 +238,12 @@ class Compras_consulta(models.Model):
     def __str__(self):
         return str(self.id)
     
+    
+    @property
+    def get_total(self):
+        total = self.id_consulta.id_medicos_especialidade.preco * self.quantity
+        return total
+
     class Meta:
         verbose_name = 'Consulta Por Compra'
         verbose_name_plural = 'Consultas Por Compra'

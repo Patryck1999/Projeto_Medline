@@ -8,7 +8,7 @@ from consulta.models import *
 class UserAdmin(admin.ModelAdmin):
     list_display = ('role', 'username', 'get_full_name')
     fields = (('is_active', 'is_staff', 'is_admin', 'is_superuser'), 'username', ('first_name', 'last_name'),
-        'email', 'date_joined', 'last_login')
+               'email', 'date_joined', 'last_login', 'password')
 
 
 admin.site.register(User, UserAdmin)
