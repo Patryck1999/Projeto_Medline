@@ -29,7 +29,7 @@ def login_request(request):
 
 def logout_request(request):
     logout(request)
-    return redirect('login')
+    return redirect('home')
 
 
 def user_registration(request):
@@ -50,7 +50,7 @@ def user_registration(request):
                     login(request, user)
                     return redirect('consultas')
             except:
-                return 'Não foi possível criar o usuário, tente novamente.'
+                return redirect('home')
        
     return render(request, 'user_registration.html', context)
 
@@ -74,3 +74,15 @@ def consultas(request):
         'medicos_especialidade':medicos_especialidade,
         }
     return render(request, 'consultas.html', context)
+
+def carrinho(request):
+    if request.user.is_authenticated:
+        paciente = request.user.pacientes
+        compras, created = Compras.objects.get_or_create(id_paciente=paciente, complete=False)
+        items = compras.compras_consulta_set.all()
+        # cartItems = compras.get_cart_items
+
+    context = {
+        'compras':compras
+    }
+    return render(request, 'carrinho.html', context)

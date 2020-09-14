@@ -39,7 +39,7 @@ class UserManager(BaseUserManager):
 
 class Role(models.Model):
     id_role = models.AutoField(primary_key=True)
-    role = models.CharField(_('Tipo de Perfil'), max_length=30,
+    role = models.CharField(_('Nome do Perfil'), max_length=30,
                             null=False, blank=False)
 
     def __str__(self):
