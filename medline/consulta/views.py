@@ -48,3 +48,15 @@ def consultas(request):
         'medicos_especialidade':medicos_especialidade,
         }
     return render(request, 'consultas.html', context)
+
+def carrinho(request):
+    if request.user.is_authenticated:
+        paciente = request.user.pacientes
+        compras, created = Compras.objects.get_or_create(id_paciente=paciente, complete=False)
+        items = compras.compras_consulta_set.all()
+        # cartItems = compras.get_cart_items
+
+    context = {
+        'compras':compras
+    }
+    return render(request, 'carrinho.html', context)

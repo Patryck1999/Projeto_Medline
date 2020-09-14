@@ -32,8 +32,17 @@ class Medicos(models.Model):
     localidade = models.CharField(max_length=50, null=True)
     foto = models.ImageField(null=True, blank=True)
 
+
     def __str__(self):
         return self.nome_completo
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.foto.url
+        except:
+            url = ''
+        return url
 
     class Meta:
         verbose_name = 'Médico'
@@ -170,6 +179,10 @@ class Medicos_especialidade(models.Model):
     id_medico = models.ForeignKey(Medicos, on_delete=models.SET_NULL, null=True)
     id_especialidade = models.ForeignKey(Especialidades, on_delete=models.SET_NULL, null=True)
     certificado_especialidade = models.ImageField(null=True, blank=True)
+    preco = models.DecimalField(max_digits=7, decimal_places=2)
+
+    def __str__(self):
+        return str(self.id)
 
     class Meta:
         verbose_name = 'Médico Por Especialidade'
@@ -193,6 +206,7 @@ class Consultas(models.Model):
 class Compras(models.Model):
     id_paciente = models.ForeignKey(Pacientes, on_delete=models.SET_NULL, null=True)
     data_emissao = models.DateTimeField(auto_now_add=True)
+    complete = models.BooleanField(default=False, null=True, blank=True)
 
 
     def __str__(self):
@@ -206,6 +220,8 @@ class Compras(models.Model):
 class Compras_consulta(models.Model):
     id_compra = models.ForeignKey(Compras, on_delete=models.SET_NULL, null=True)
     id_consulta = models.ForeignKey(Consultas, on_delete=models.SET_NULL, null=True)
+    quantity = models.IntegerField(default=0, null=True, blank=True)
+
 
     def __str__(self):
         return str(self.id)

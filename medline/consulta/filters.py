@@ -6,4 +6,5 @@ class EspecialidadeFilter(django_filters.FilterSet):
     class Meta:
         model = Especialidades
         fields = '__all__'
+        
 

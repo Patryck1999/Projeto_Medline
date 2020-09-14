@@ -7,4 +7,5 @@ urlpatterns =[
     path('logout/', v.logout_request, name='logout'),
     path('', v.home, name="home"),
     path('consultas/', v.consultas, name="consultas"),
+    path('carrinho/', v.carrinho, name="carrinho"),
 ]
