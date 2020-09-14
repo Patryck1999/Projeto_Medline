@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block main %}
-    <h1>Especialidades trabalhadas</h1>
+    <div class="container">
+        <h1>Especialidades trabalhadas</h1>
     <form method="get">
                 <p>Especialidade:</p>
                 {{filtro_especialidade.form.especialidade}}
                 <button class="btn btn-primary" type="submit">Filtrar</button>
     </form>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-md-12">
             <ul>
             {% for especialidade in especialidades %}
                 <li>{{especialidade.especialidade}} </li>
@@ -16,5 +17,6 @@
             </ul>
         </div>
     </div>
-    <div class="row">
+    </div>
+    
 {% endblock main %}
