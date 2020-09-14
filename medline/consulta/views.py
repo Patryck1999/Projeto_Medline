@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.hashers import make_password
+#from django.contrib.auth import logout
+
 from consulta.forms.form_login import UserLogin
-from django.contrib.auth import logout
+from consulta.forms.form_registration import UserRegistration
 
 from .models import *
 from .filters import EspecialidadeFilter
@@ -27,6 +30,29 @@ def login_request(request):
 def logout_request(request):
     logout(request)
     return redirect('login')
+
+
+def user_registration(request):
+    user_registration_form = UserRegistration(request.POST or None)
+    context = {'user_registration_form': user_registration_form}
+    if request.method == 'POST':
+        if user_registration_form.is_valid():
+            # Encrypt password before saving it to User Model
+            user = user_registration_form.save(commit=False)
+            user.password = make_password(user.password)
+            user.save()
+
+            try:
+                username = request.POST.get("username")
+                password = request.POST.get("password")
+                user = authenticate(request, username=username, password=password)
+                if user:
+                    login(request, user)
+                    return redirect('consultas')
+            except:
+                return 'Não foi possível criar o usuário, tente novamente.'
+       
+    return render(request, 'user_registration.html', context)
 
 # ------------------------------
 

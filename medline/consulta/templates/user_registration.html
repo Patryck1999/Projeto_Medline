@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div class="container">
+    <form method="POST" action="{% url 'user_registration' %}" id="r_user" class="mx-auto">
+        {% include "includes/form_group.html" with form=form %}
+        {{ user_registration_form }}
+
+        <div>
+            <button class="btn btn-primary btn-block" type="submit">registrar</button>
+        </div>
+</div>
+
+{% endblock %}

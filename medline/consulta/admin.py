@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from consulta.models_login import User
+from consulta.models_login import User, Role
 from consulta.models import *
 
 # Register your models here.
@@ -12,6 +12,7 @@ class UserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(User, UserAdmin)
+admin.site.register(Role)
 
 admin.site.register(Pacientes)
 admin.site.register(Medicos)

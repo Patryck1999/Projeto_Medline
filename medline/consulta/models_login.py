@@ -38,19 +38,21 @@ class UserManager(BaseUserManager):
 
 
 class Role(models.Model):
-    ROLE_CHOICES = (
-        ('paciente', 'paciente'),
-        ('medico', 'medico'),
-    )
-    role = models.CharField(max_length=15, choices=ROLE_CHOICES)
+    id_role = models.AutoField(primary_key=True)
+    role = models.CharField(_('Tipo de Perfil'), max_length=30,
+                            null=False, blank=False)
 
     def __str__(self):
         return self.role
 
+    class Meta:
+        verbose_name = _('Perfil de Acesso')
+        verbose_name_plural = _('Perfis de Acesso')
+
 
 class User(AbstractBaseUser, PermissionsMixin):
 
-    role = models.ForeignKey(Role, on_delete=models.CASCADE, blank=True, null=True)
+    role = models.ForeignKey(Role, on_delete=models.CASCADE, null = True)
     username = models.CharField(_('username'), max_length=15, unique=True,
                                 null=False, blank=False)
     password = models.CharField(_('password'), max_length=128)
