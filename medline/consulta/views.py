@@ -9,7 +9,6 @@ from consulta.forms.form_registration import UserRegistration
 from .models import *
 from .filters import EspecialidadeFilter
 
-
 from django.http import JsonResponse
 import json
 # Create your views here.
@@ -65,23 +64,27 @@ def home(request):
     return render(request, 'home.html', context)
 
 def consultas(request):
-    cartItems = {}
     if request.user.is_authenticated:
         paciente = request.user.pacientes
         compras, created = Compras.objects.get_or_create(id_paciente=paciente, complete=False)
         items = compras.compras_consulta_set.all()
         cartItems = compras.get_cart_items
-
-
+    
+    else:
+        cartItems = {}
+    
     medicos_especialidade = Medicos_especialidade.objects.all()
 
-    especialidades = Especialidades.objects.all()
-    filtro_especialidade = EspecialidadeFilter(request.GET, queryset=especialidades)
-    especialidades = filtro_especialidade.qs
-    
+    especialidade_query = request.GET.get('especialidade')
+    cidade_query = request.GET.get('cidade')
+
+    if especialidade_query != '' and especialidade_query is not None:
+        medicos_especialidade = medicos_especialidade.filter(id_especialidade__especialidade__icontains=especialidade_query)
+
+    if cidade_query != '' and cidade_query is not None:
+        medicos_especialidade = medicos_especialidade.filter(id_medico__localidade__icontains=cidade_query)
+
     context = {
-        'filtro_especialidade':filtro_especialidade,
-        'especialidades':especialidades,
         'medicos_especialidade':medicos_especialidade,
         'cartItems':cartItems
         }

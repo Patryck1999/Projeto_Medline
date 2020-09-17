@@ -1,8 +1,32 @@
 {% extends 'base.html' %}
 {% load static %}
+<title>{% block title %}Consultas{% endblock %}</title>
 {% block main %}
     <h1>Consultas</h1>
-
+        
+        <form method="get">
+            <div class="row col-md-12">       
+                <div class="col-lg-4">
+                    <p>Especialidade:</p>
+                    <input autocomplete="off" list="especialidades" type="search" name="especialidade" style="width: 400px;">
+                </div>
+                <datalist id="especialidades">
+                    {% for m_e in medicos_especialidade %}
+                        <option>{{m_e.id_especialidade.especialidade}}</option>
+                    {% endfor %}
+                </datalist>
+                <div class="col-lg-6">
+                    <p>Cidade:</p>
+                    <input autocomplete="off" list="cidades" type="search" name="cidade" style="width: 400px;">
+                    <button class="btn btn-primary" type="submit">Filtrar</button>
+                </div>
+                <datalist id="cidades">
+                    {% for m_e in medicos_especialidade %}
+                        <option>{{m_e.id_medico.localidade}}</option>
+                    {% endfor %}
+                </datalist>
+            </div>
+        </form> 
 
     <div class="row col-md-8">
 
