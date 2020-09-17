@@ -1,17 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.hashers import make_password
-#from django.contrib.auth import logout
 
 from consulta.forms.form_login import UserLogin
-from consulta.forms.form_registration import UserRegistration
+from consulta.forms.form_registration import patientRegistration, doctorRegistration
 
 from .models import *
 from .filters import EspecialidadeFilter
 
 # Create your views here.
 
-# ------------------------------ Register
+# ------------------------------ Login / Logout
 
 def login_request(request):
     context = {}
@@ -32,16 +30,15 @@ def logout_request(request):
     return redirect('home')
 
 
-def user_registration(request):
-    user_registration_form = UserRegistration(request.POST or None)
-    context = {'user_registration_form': user_registration_form}
-    if request.method == 'POST':
-        if user_registration_form.is_valid():
-            # Encrypt password before saving it to User Model
-            user = user_registration_form.save(commit=False)
-            user.password = make_password(user.password)
-            user.save()
+# ------------------------------ CRUD Patient
 
+def register_patient(request):
+    patient_registration_form = patientRegistration(request.POST or None)
+    context = {'patient_registration_form': patient_registration_form}
+    if request.method == 'POST':
+        if patient_registration_form.is_valid():
+            patient_registration_form.save_user()
+            
             try:
                 username = request.POST.get("username")
                 password = request.POST.get("password")
@@ -52,10 +49,32 @@ def user_registration(request):
             except:
                 return redirect('home')
        
-    return render(request, 'user_registration.html', context)
+    return render(request, 'patient_registration_form.html', context)
+
+
+# ------------------------------ CRUD Doctor 
+
+def register_doctor(request):
+    doctor_registration_form = doctorRegistration(request.POST or None)
+    context = {'doctor_registration_form': doctor_registration_form}
+    if request.method == 'POST':
+        if doctor_registration_form.is_valid():
+            doctor_registration_form.save_user()
+            
+            try:
+                username = request.POST.get("username")
+                password = request.POST.get("password")
+                user = authenticate(request, username=username, password=password)
+                if user:
+                    login(request, user)
+                    return redirect('consultas')
+            except:
+                return redirect('home')
+       
+    return render(request, 'doctor_registration_form.html', context)
+
 
 # ------------------------------
-
 
 def home(request):
     context = {}

@@ -38,9 +38,15 @@ class UserManager(BaseUserManager):
 
 
 class Role(models.Model):
+    role_choices = (
+        ('adm', 'Administrador do Sistema'),
+        ('medico', 'Médico'),
+        ('paciente', 'Paciente')
+    )
+
     id_role = models.AutoField(primary_key=True)
-    role = models.CharField(_('Nome do Perfil'), max_length=30,
-                            null=False, blank=False)
+    role = models.CharField(_('Tipo de Perfil de Acesso'),
+                            max_length=30, choices=role_choices)
 
     def __str__(self):
         return self.role
@@ -51,16 +57,14 @@ class Role(models.Model):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-
-    role = models.ForeignKey(Role, on_delete=models.CASCADE, null = True)
-    username = models.CharField(_('username'), max_length=15, unique=True,
+    username = models.CharField(_('Usuário'), max_length=15, unique=True,
                                 null=False, blank=False)
-    password = models.CharField(_('password'), max_length=128)
-    first_name = models.CharField(_('first name'), max_length=30,
+    password = models.CharField(_('Senha'), max_length=128)
+    first_name = models.CharField(_('Nome'), max_length=30,
                                   null=False, blank=False)
-    last_name = models.CharField(_('last name'), max_length=30,
+    last_name = models.CharField(_('Sobrenome'), max_length=30,
                                  null=False, blank=False)
-    email = models.EmailField(_('email address'), max_length=255, unique=True,
+    email = models.EmailField(_('E-mail'), max_length=255, unique=True,
                               validators=[
                                           validators.RegexValidator(re.compile(
                                               '^[\w.@+-]+$'),
@@ -76,7 +80,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
 
     class Meta:
         verbose_name = _('user')

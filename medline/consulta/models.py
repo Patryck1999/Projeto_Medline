@@ -1,40 +1,31 @@
 from django.db import models
-from consulta.models_login import User
+from consulta.models_login import User, Role
 
 # Create your models here.
 
-class Pacientes(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    nome_completo = models.CharField(max_length=100, null=True)
-    data_nascimento = models.DateTimeField(auto_now_add=True)
-    email = models.EmailField(max_length=200, null=True)
-    cpf = models.CharField(max_length=14, null=True)
-    tipos = [('Paciente', 'Paciente'),]
-    tipo = models.CharField(max_length=30,choices=tipos)
+class Pacientes(User):
+    role = models.ForeignKey(Role, on_delete=models.CASCADE, default='3') # id 3 = paciente
+    birth = models.DateField(verbose_name='Data de Nascimento') # formato: 1991-11-15
+    cpf = models.CharField(max_length=11, null=True, verbose_name='CPF')
 
     def __str__(self):
-        return self.nome_completo
+        return self.get_full_name()
 
     class Meta:
         verbose_name = 'Paciente'
         verbose_name_plural = 'Pacientes'
 
 
-class Medicos(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    nome_completo = models.CharField(max_length=100, null=True)
-    data_nascimento = models.DateTimeField(auto_now_add=True)
-    email = models.EmailField(max_length=200, null=True)
-    cpf = models.CharField(max_length=14, null=True)
+class Medicos(User):
+    role = models.ForeignKey(Role, on_delete=models.CASCADE, default='2') # id 2 = medico
+    birth = models.DateField(verbose_name='Data de Nascimento') # formato: 1991-11-15
+    cpf = models.CharField(max_length=11, null=True, verbose_name='CPF')
     crm = models.CharField(max_length=20, null=True)
-    tipos = [('Medico','Medico')]
-    tipo = models.CharField(max_length=30,choices=tipos)
     localidade = models.CharField(max_length=50, null=True)
     foto = models.ImageField(null=True, blank=True)
 
-
     def __str__(self):
-        return self.nome_completo
+        return self.get_full_name()
 
     @property
     def imageURL(self):
