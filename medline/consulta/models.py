@@ -1,10 +1,10 @@
 from django.db import models
-from consulta.models_login import User, Role
+from consulta.models_login import User
 
 # Create your models here.
 
 class Pacientes(User):
-    role = models.ForeignKey(Role, on_delete=models.CASCADE, default='3') # id 3 = paciente
+    role = models.CharField(max_length=9, default='paciente')
     birth = models.DateField(verbose_name='Data de Nascimento') # formato: 1991-11-15
     cpf = models.CharField(max_length=11, null=True, verbose_name='CPF')
 
@@ -17,7 +17,7 @@ class Pacientes(User):
 
 
 class Medicos(User):
-    role = models.ForeignKey(Role, on_delete=models.CASCADE, default='2') # id 2 = medico
+    role = models.CharField(max_length=9, default='medico')
     birth = models.DateField(verbose_name='Data de Nascimento') # formato: 1991-11-15
     cpf = models.CharField(max_length=11, null=True, verbose_name='CPF')
     crm = models.CharField(max_length=20, null=True)

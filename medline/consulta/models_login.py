@@ -37,25 +37,6 @@ class UserManager(BaseUserManager):
         return user
 
 
-class Role(models.Model):
-    role_choices = (
-        ('adm', 'Administrador do Sistema'),
-        ('medico', 'Médico'),
-        ('paciente', 'Paciente')
-    )
-
-    id_role = models.AutoField(primary_key=True)
-    role = models.CharField(_('Tipo de Perfil de Acesso'),
-                            max_length=30, choices=role_choices)
-
-    def __str__(self):
-        return self.role
-
-    class Meta:
-        verbose_name = _('Perfil de Acesso')
-        verbose_name_plural = _('Perfis de Acesso')
-
-
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(_('Usuário'), max_length=15, unique=True,
                                 null=False, blank=False)
