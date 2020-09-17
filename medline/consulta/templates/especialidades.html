@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+<title>{% block title %}Especialidades{% endblock %}</title>
+{% block main %}
+    <div class="container">
+        <h1>Especialidades trabalhadas</h1>
+    <form method="get">
+                <p>Especialidade:</p>
+                {{filtro_especialidade.form.especialidade}}
+                <button class="btn btn-primary" type="submit">Filtrar</button>
+    </form>
+    <div class="row">
+        <div class="col-md-12">
+            <ul>
+            {% for especialidade in especialidades %}
+                <li>{{especialidade.especialidade}} </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+    </div>
+    
+{% endblock main %}

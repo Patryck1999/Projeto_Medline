@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.hashers import make_password
 
 from consulta.models_login import User
-from consulta.models import Pacientes
+from consulta.models import Pacientes, Medicos
 
 
 class patientRegistration(forms.ModelForm):
