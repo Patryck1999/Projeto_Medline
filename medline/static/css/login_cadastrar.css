@@ -1,0 +1,80 @@
+body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+		}
+		.user_card {
+			width: 580px;
+			margin-top: auto;
+			margin-bottom: auto;
+			background: #64afff;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			padding: 10px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+
+		div.option-user{
+			width: 400px !important;
+			flex-direction: row !important;
+			margin: 10px;
+		}
+
+		.option-options{
+			width: 20rem !important;
+			border-radius: 10px !important;
+			border: 1px solid rgba(0,0,0,.125) !important;
+			margin: 10px;
+			font-size: 2.1rem;
+			text-align: center !important;
+		}
+
+		.list-group-item.active{
+			background: #ff9b00 !important;
+		}
+
+		.form_container {
+			margin-top: 20px;
+		}
+
+		#form-title{
+			color: #fff;
+		}
+
+		div.links{
+			font-size: 1.65rem;
+		}
+		.login_btn {
+			width: 100%;
+			background: #fff !important;
+			color: #64afff !important;
+
+			font-size: 1.65rem !important;
+		}
+
+		.login_btn:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.login_container {
+			padding: 0 2rem;
+		}
+		.input-group-text {
+			background: #ff9b00 !important;
+			color: white !important;
+			border: 0 !important;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+		.input_user,
+		.input_pass:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}

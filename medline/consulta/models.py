@@ -228,8 +228,8 @@ class Compras_consulta(models.Model):
 
     def __str__(self):
         return str(self.id)
-    
-    
+
+
     @property
     def get_total(self):
         total = self.id_consulta.id_medicos_especialidade.preco * self.quantity

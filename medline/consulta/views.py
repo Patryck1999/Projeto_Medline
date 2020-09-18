@@ -93,6 +93,8 @@ def consultas(request):
         cartItems = {}
     
     medicos_especialidade = Medicos_especialidade.objects.all()
+    medicos = Medicos.objects.all()
+
 
     especialidade_query = request.GET.get('especialidade')
     cidade_query = request.GET.get('cidade')
@@ -105,7 +107,8 @@ def consultas(request):
 
     context = {
         'medicos_especialidade':medicos_especialidade,
-        'cartItems':cartItems
+        'cartItems':cartItems,
+        'medicos':medicos
         }
     return render(request, 'consultas.html', context)
 

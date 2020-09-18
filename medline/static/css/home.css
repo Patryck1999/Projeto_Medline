@@ -16,7 +16,7 @@ html,body {
     height: 100vh;
 }
 body {
-    background-color: var(--color-background);
+    background-color: var(--color-background) !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -28,23 +28,48 @@ body {
 	align-items: center;
 }
 
-a.entrar, a.cadastrar {	
+div.modal-content{
+	width: 600px !important;
+}
+
+div.form_container{
+	width: 500px;
+}
+
+div.ipt-wd{
+	width: 400px;
+	height: 35px;
+	margin-bottom: 25px !important;
+}
+
+.inputs{
+	width: 350px;
+	font-size: 1.3rem;
+}
+.fotos{
+	font-size: 1.4rem !important;
+}
+
+.wd-ic{
+	width: 35px;
+}
+
+.entrar, .cadastrar {	
 	color: #FFFFFF;
-	font-family: 'Roboto', sans-serif;
-	font-weight: 500;
-	font-size: 2.1rem;
-	text-decoration: none;
-	border-radius: 10px;
+	font-family: 'Roboto', sans-serif !important;
+	font-weight: 500 !important;
+	font-size: 2.1rem !important;
+	border-radius: 10px !important;
 
 	display: flex;
 	justify-content: center;
 	align-items: center;
 
-	width: 200px;
-	height: 35px;
-	background: var(--color-background-button-login);
+	width: 200px !important;
+	height: 35px !important;
+	background: var(--color-background-button-login) !important;
 
-	margin: 10px;
+	margin: 10px !important;
 }
 
 div.apresentation{
@@ -59,15 +84,15 @@ div.apresentation-content{
 	justify-content: center;
 }
 h1, h3 {
-	color: var(--color-text);
-	font-family: 'Roboto', sans-serif;
+	color: var(--color-text) !important;
+	font-family: 'Roboto', sans-serif !important;
 }
 h1 {
-	font-size: 5rem;
+	font-size: 5rem !important;
 }
 h3 {
-	font-size: 2rem;
-	font-weight: 400;
+	font-size: 2rem !important;
+	font-weight: 400 !important;
 }
 img.doctor{
 	width: 240px;
@@ -113,7 +138,7 @@ p.text-content{
 	color: var(--color-text);
 	font-family: 'Roboto', sans-serif;
 	font-weight: 500;
-	font-size: 1.7rem;
+	font-size: 1.7rem !important;
 
 	padding: 2px;
 }
@@ -130,4 +155,10 @@ div.row {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+
+@media (min-width: 600px){
+.modal-dialog {
+    max-width: 600px !important;
+    margin: 1.75rem auto !important;
 }

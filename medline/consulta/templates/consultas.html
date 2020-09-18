@@ -21,8 +21,8 @@
                     <button class="btn btn-primary" type="submit">Filtrar</button>
                 </div>
                 <datalist id="cidades">
-                    {% for m_e in medicos_especialidade %}
-                        <option>{{m_e.id_medico.localidade}}</option>
+                    {% for m in medicos %}
+                        <option>{{m.localidade}}</option>
                     {% endfor %}
                 </datalist>
             </div>
