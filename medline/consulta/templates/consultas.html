@@ -12,7 +12,9 @@
                 </div>
                 <datalist id="especialidades">
                     {% for m_e in medicos_especialidade %}
+                    {% ifchanged m_e.id_especialidade.especialidade %}
                         <option>{{m_e.id_especialidade.especialidade}}</option>
+                    {% endifchanged %}
                     {% endfor %}
                 </datalist>
                 <div class="col-lg-6">
@@ -22,10 +24,13 @@
                 </div>
                 <datalist id="cidades">
                     {% for m in medicos %}
-                        <option>{{m.localidade}}</option>
+                    {% ifchanged m.localidade %}
+                        <option>{{ m.localidade}}</option>
+                    {% endifchanged %}
                     {% endfor %}
                 </datalist>
             </div>
+            
         </form> 
 
     <div class="row col-md-8">

@@ -12,10 +12,13 @@
         <div class="col-lg-12">
             <ul>
             {% for medico in medicos %}
+            {% ifchanged medico.localidade %}
                 <li>{{medico.localidade}} </li>
+            {% endifchanged %}
             {% endfor %}
             </ul>
         </div>
     </div>
+
    
 {% endblock main %}

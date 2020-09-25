@@ -1,58 +1,54 @@
-{% extends 'base.html' %}
-{% load bootstrap4 %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
 
+<head>
+    <title>Medline - Home</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login_cadastrar.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+</head>
 
-{% block links %}
-    <!--User / Key Button-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-          crossorigin="anonymous">
-{% endblock %}
+<body>
+    <div class="container">
+        <div class="row">
 
-
-{% block title %} Medline - Home {% endblock %}
-
-
-<div class="container"  >
-    {% block main %}
-        <!-- Login Card -->
-        <div class="d-flex justify-content-center h-100" style="margin: 100px;">
-            <div class="card" style="background-color: #00D3FF;">
-
-                <div class="card-header">
-                    <!--<img src="{% static '/static/images/especialidades.png' %}" alt="signin">-->
+            <div class="user_card">
+                <div class="d-flex justify-content-center">
+                    <h1 id="form-title">Tela login</h1>
                 </div>
-
-                <div class="card-body">      
-                    <form method="POST" action="{% url 'login_request' %}" id="form_login" class="mx-auto">
-                        {% include "includes/form_group.html" with form=form %}
-                        
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                <div class="d-flex justify-content-center form_container">
+                    <form method="POST" action="{% url 'login_request' %}">
+                        {% csrf_token %}
+                        <div class="ipt-wd input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="wd-ic fas fa-user"></i></span>
                             </div>
-                            <input id="id_username" name="username" type="text" class="form-control" placeholder="Username"/>
+                            {{ form.username }}
                         </div>
-
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        <div class="ipt-wd input-group mb-2">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="wd-ic fas fa-key"></i></span>
                             </div>
-                            <input id="id_password" name="password" type="password" class="form-control" placeholder="Password"/>
+                            {{ form.password }}
+                            <!-- <input class="inputs" type="password" name="password" placeholder="Senha..."
+                            class="form-control"> -->
                         </div>
 
-                        <div class="form-group">
-                            <input type="submit" value="Login" class="btn float-right login_btn text-uppercase"/>
-                            <input type="hidden" name="next" value="{{ next }}" />
+                        <div class="d-flex justify-content-center mt-3 login_container">
+                            <input class="btn login_btn" type="submit" value="Entrar">
                         </div>
-
-                    </form>                         
+                    </form>
                 </div>
 
             </div>
         </div>
-        <!-- Login Card -->
-
-    {% endblock %}
-</div>
+    </div>
+</body>

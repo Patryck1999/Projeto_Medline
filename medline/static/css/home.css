@@ -39,7 +39,7 @@ div.form_container{
 div.ipt-wd{
 	width: 400px;
 	height: 35px;
-	margin-bottom: 25px !important;
+	margin-bottom: 19px !important;
 }
 
 .inputs{
@@ -158,7 +158,8 @@ div.row {
 }
 
 @media (min-width: 600px){
-.modal-dialog {
-    max-width: 600px !important;
-    margin: 1.75rem auto !important;
+	.modal-dialog {
+		max-width: 600px !important;
+		margin: 1.75rem auto !important;
+	}
 }

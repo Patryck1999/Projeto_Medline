@@ -67,7 +67,7 @@ def register_doctor(request):
                 username = request.POST.get("username")
                 password = request.POST.get("password")
                 user = authenticate(request, username=username, password=password)
-                if user:
+                if user.pacient :
                     login(request, user)
                     return redirect('consultas')
             except:
@@ -128,6 +128,11 @@ def cidades(request):
     
     context={'medicos':medicos}
     return render(request, 'cidades.html', context)
+
+def especialidades_medicas(request):
+    context = {}
+    return render(request, 'especialidades_medicas.html', context)
+    
 
 def carrinho(request):
     if request.user.is_authenticated:

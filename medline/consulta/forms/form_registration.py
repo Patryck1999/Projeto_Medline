@@ -22,7 +22,13 @@ class patientRegistration(forms.ModelForm):
         ]
 
         widgets = {
-            'password': forms.PasswordInput(attrs={'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'class': 'inputs', 'placeholder': 'Insira seu nome de usuário'}),
+            'password': forms.PasswordInput(attrs={'class': 'inputs', 'placeholder': 'Insira sua senha'}),
+            'first_name': forms.TextInput(attrs={'class': 'inputs', 'placeholder': 'Insira seu primeiro nome'}),
+            'last_name': forms.TextInput(attrs={'class': 'inputs', 'placeholder': 'Insira seu sobrenome'}),
+            'email': forms.TextInput(attrs={'class': 'inputs', 'type': 'email', 'placeholder': 'Insira seu email'}),
+            'birth': forms.TextInput(attrs={'class': 'inputs', 'type': 'date', 'title': 'Data de Nascimento'}),
+            'cpf': forms.TextInput(attrs={'class': 'inputs', 'placeholder': 'CPF'}),
         }
 
 
@@ -49,12 +55,19 @@ class doctorRegistration(forms.ModelForm):
             'birth',
             'cpf',
             'crm',
-            'localidade',
             'foto',
         ]
 
         widgets = {
-            'password': forms.PasswordInput(attrs={'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'class': 'inputs', 'placeholder': 'Insira seu nome de usuário'}),
+            'password': forms.PasswordInput(attrs={'class': 'inputs', 'placeholder': 'Insira sua senha'}),
+            'first_name': forms.TextInput(attrs={'class': 'inputs', 'placeholder': 'Insira seu primeiro nome'}),
+            'last_name': forms.TextInput(attrs={'class': 'inputs', 'placeholder': 'Insira seu sobrenome'}),
+            'email': forms.TextInput(attrs={'class': 'inputs', 'type': 'email', 'placeholder': 'Insira seu email'}),
+            'birth': forms.TextInput(attrs={'class': 'inputs', 'type': 'date', 'title': 'Data de Nascimento'}),
+            'cpf': forms.TextInput(attrs={'class': 'inputs', 'placeholder': 'CPF'}),
+            'crm': forms.TextInput(attrs={'class': 'inputs', 'placeholder': 'CRM'}),
+            'foto': forms.TextInput(attrs={'class': 'inputs','type': 'file'}),
         }
 
 

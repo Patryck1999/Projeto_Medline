@@ -12,16 +12,6 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-		crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-		crossorigin="anonymous"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
 		integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 </head>
@@ -34,269 +24,36 @@
 			<button type="button" class="cadastrar btn btn-primary" data-toggle="modal" data-target="#cadastrar">
 				Cadastre-se
 			</button>
-
 			<!-- Modal -->
 			<div class="modal fade" id="cadastrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-scrollable">
+				<div class="modal-dialog">
 					<div class="modal-content">
-						<div class="modal-header d-flex justify-content-center">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<a href="{% url 'register_patient' %}"><button type="button" class="cadastrar">Paciente</button></a>
+							<a href="{% url 'register_doctor' %}"><button type="button" class="cadastrar">Medico</button></a>
 						</div>
-						<div class="modal-body">
-							<div class="row">
-								<div class="col-8">
-									<div class="option-user list-group" id="list-tab" role="tablist">
-										<a class="option-options list-group-item list-group-item-action active"
-											id="list-home-list" data-toggle="list" href="#list-home" role="tab"
-											aria-controls="home">Paciente</a>
-										<a class="option-options list-group-item list-group-item-action"
-											id="list-profile-list" data-toggle="list" href="#list-profile" role="tab"
-											aria-controls="profile">Médico</a>
-
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="tab-content" id="nav-tabContent">
-
-										<!-- PACIENTE -->
-										<div class="tab-pane fade show active" id="list-home" role="tabpanel"
-											aria-labelledby="list-home-list">
-
-											<div class="user_card" id="list-home">
-												<div class="d-flex justify-content-center">
-													<h2 id="form-title">Tela de Paciente</h2>
-												</div>
-												<div class="d-flex justify-content-center form_container">
-													<form method="POST" action="">
-														<div class="ipt-wd input-group mb-3">
-															<div class="input-group-append">
-																<span class="input-group-text"><i
-																		class="wd-ic fas fa-user"></i></span>
-															</div>
-															<input class="inputs" type="text" name="username"
-																placeholder="Insira seu nome de usuário">
-														</div>
-														<div class="ipt-wd input-group mb-3">
-															<div class="input-group-append">
-																<span class="input-group-text"><i
-																		class="wd-ic fas fa-key"></i></span>
-															</div>
-															<input class="inputs" type="text" name="password"
-																placeholder="Insira sua senha">
-														</div>
-														<div class="ipt-wd input-group mb-2">
-															<div class="input-group-append">
-																<span class="input-group-text"><i
-																		class="wd-ic fas fa-user"></i></span>
-															</div>
-															<input class="inputs" type="text" name="nome"
-																placeholder="Insira seu primeiro nome">
-														</div>
-														<div class="ipt-wd input-group mb-2">
-															<div class="input-group-append">
-																<span class="input-group-text"><i
-																		class="wd-ic fas fa-user"></i></span>
-															</div>
-															<input class="inputs" type="text" name="sobrenome"
-																placeholder="Insira seu sobrenome">
-														</div>
-														<div class="ipt-wd input-group mb-2">
-															<div class="input-group-append">
-																<span class="input-group-text"><i
-																		class="wd-ic fas fa-envelope-square"></i></span>
-															</div>
-															<input class="inputs" type="email" name="email"
-																placeholder="Insira seu email">
-														</div>
-														<div class="ipt-wd input-group mb-2">
-															<div class="input-group-append">
-																<span class="input-group-text"><i
-																		class="wd-ic fas fa-envelope-square"></i></span>
-															</div>
-															<input class="inputs" type="date" name="data_de_nascimento"
-																placeholder="Data de nascimento">
-														</div>
-														<div class="ipt-wd input-group mb-2">
-															<div class="input-group-append">
-																<span class="input-group-text"><i
-																		class="wd-ic fas fa-key"></i></span>
-															</div>
-															<input class="inputs" type="text" name="cpf"
-																placeholder="CPF">
-														</div>
-
-														<div class="d-flex justify-content-center mt-3 login_container">
-															<input class="btn login_btn" type="submit"
-																value="CADASTRAR">
-														</div>
-													</form>
-												</div>
-											</div>
-
-										</div>
-
-
-										<!-- MÉDICO -->
-										<div class="tab-pane fade" id="list-profile" role="tabpanel"
-											aria-labelledby="list-profile-list">
-
-											<div class="user_card" id="list-home">
-												<div class="d-flex justify-content-center">
-													<h2 id="form-title">Tela de Médico</h2>
-												</div>
-												<div class="d-flex justify-content-center form_container">
-													<form method="POST" action="">
-														<div class="ipt-wd input-group mb-3">
-															<div class="input-group-append">
-																<span class="input-group-text"><i
-																		class="wd-ic fas fa-user"></i></span>
-															</div>
-															<input class="inputs" type="text" name="username"
-																placeholder="Insira seu nome de usuário">
-														</div>
-														<div class="ipt-wd input-group mb-3">
-															<div class="input-group-append">
-																<span class="input-group-text"><i
-																		class="wd-ic fas fa-key"></i></span>
-															</div>
-															<input class="inputs" type="text" name="password"
-																placeholder="Insira sua senha">
-														</div>
-														<div class="ipt-wd input-group mb-2">
-															<div class="input-group-append">
-																<span class="input-group-text"><i
-																		class="wd-ic fas fa-user"></i></span>
-															</div>
-															<input class="inputs" type="text" name="nome"
-																placeholder="Insira seu primeiro nome">
-														</div>
-														<div class="ipt-wd input-group mb-2">
-															<div class="input-group-append">
-																<span class="input-group-text"><i
-																		class="wd-ic fas fa-user"></i></span>
-															</div>
-															<input class="inputs" type="text" name="sobrenome"
-																placeholder="Insira seu sobrenome">
-														</div>
-														<div class="ipt-wd input-group mb-2">
-															<div class="input-group-append">
-																<span class="input-group-text"><i
-																		class="wd-ic fas fa-envelope-square"></i></span>
-															</div>
-															<input class="inputs" type="email" name="email"
-																placeholder="Insira seu email">
-														</div>
-														<div class="ipt-wd input-group mb-2">
-															<div class="input-group-append">
-																<span class="input-group-text"><i
-																		class="wd-ic fas fa-envelope-square"></i></span>
-															</div>
-															<input class="inputs" type="date" name="data_de_nascimento"
-																placeholder="Data de nascimento">
-														</div>
-														<div class="ipt-wd input-group mb-2">
-															<div class="input-group-append">
-																<span class="input-group-text"><i
-																		class="wd-ic fas fa-key"></i></span>
-															</div>
-															<input class="inputs" type="text" name="cpf"
-																placeholder="CPF">
-														</div>
-														<div class="ipt-wd input-group mb-2">
-															<div class="input-group-append">
-																<span class="input-group-text"><i
-																		class="wd-ic fas fa-key"></i></span>
-															</div>
-															<input class="inputs" type="text" name="crm"
-																placeholder="CRM">
-														</div>
-														<div class="ipt-wd input-group mb-2">
-															<div class="input-group-append">
-																<span class="fotos input-group-text">INSIRA SUA
-																	FOTO</span>
-															</div>
-															<input class="inputs" type="file" name="foto"
-																placeholder="Foto">
-														</div>
-
-
-														<div class="d-flex justify-content-center mt-3 login_container">
-															<input class="btn login_btn" type="submit"
-																value="CADASTRAR">
-														</div>
-													</form>
-												</div>
-											</div>
-
-										</div>
-
-									</div>
-								</div>
-							</div>
-
-						</div>
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
 					</div>
 				</div>
 			</div>
 
 			<!-- LOGIN -->
-			<button type="button" class="cadastrar btn btn-primary" data-toggle="modal" data-target="#login">
-				Entrar
-			</button>
-
-			<!-- Modal -->
-			<div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<div class="user_card">
-								<div class="d-flex justify-content-center">
-									<h2 id="form-title">Tela login</h3>
-								</div>
-								<div class="d-flex justify-content-center form_container">
-									<form method="POST" action="">
-										<div class="ipt-wd input-group mb-3">
-											<div class="input-group-append">
-												<span class="input-group-text"><i class="wd-ic fas fa-user"></i></span>
-											</div>
-											<input class="inputs" type="text" name="username" placeholder="Usuário..."
-												class="form-control">
-										</div>
-										<div class="ipt-wd input-group mb-2">
-											<div class="input-group-append">
-												<span class="input-group-text"><i class="wd-ic fas fa-key"></i></span>
-											</div>
-											<input class="inputs" type="password" name="password" placeholder="Senha..."
-												class="form-control">
-										</div>
-
-										<div class="d-flex justify-content-center mt-3 login_container">
-											<input class="btn login_btn" type="submit" value="Entrar">
-										</div>
-									</form>
-								</div>
-
-							</div>
-
-						</div>
-						<div class="modal-footer">
-							<div class="mt-4">
-								<div class="d-flex justify-content-center links">
-									Esqueceu sua senha? <a href="#" class="ml-2">Clique aqui</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<a href="{% url 'login_request' %}">
+				<button type="button" class="cadastrar btn btn-primary">
+					Entrar
+				</button>
+		</a>
 
 		</div>
 		<div class="container">
@@ -328,6 +85,21 @@
 			</div>
 		</div>
 	</div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+		crossorigin="anonymous"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+	{% block scripts %}
+
+	{% endblock %}
+
 </body>
 
 </html>

@@ -21,7 +21,6 @@ class Medicos(User):
     birth = models.DateField(verbose_name='Data de Nascimento') # formato: 1991-11-15
     cpf = models.CharField(max_length=11, null=True, verbose_name='CPF')
     crm = models.CharField(max_length=20, null=True)
-    localidade = models.CharField(max_length=50, null=True)
     foto = models.ImageField(null=True, blank=True)
 
     def __str__(self):

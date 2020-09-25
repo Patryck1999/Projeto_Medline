@@ -11,6 +11,8 @@ urlpatterns =[
     path('consultas/', v.consultas, name="consultas"),
     path('especialidades/', v.especialidades, name="especialidades"),
     path('cidades/', v.cidades, name="cidades"),
+    path('especialidades_medicas/', v.especialidades_medicas, name="especialidades_medicas"),
     path('carrinho/', v.carrinho, name="carrinho"),
     path('update_item/', v.updateItem, name="update_item"),
+    
 ]
