@@ -9,7 +9,16 @@ from .filters import EspecialidadeFilter
 
 from django.http import JsonResponse
 import json
-# Create your views here.
+
+from .Google import Create_Service
+import base64
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+ 
+CLIENT_SECRET_FILE = 'client_secret.json'
+API_NAME = 'gmail'
+API_VERSION = 'v1'
+SCOPES = ['https://mail.google.com/']
 
 # ------------------------------ Login / Logout
 
@@ -44,10 +53,23 @@ def logout_request(request):
 
 def register_patient(request):
     patient_registration_form = patientRegistration(request.POST or None)
+    
     context = {'patient_registration_form': patient_registration_form}
     if request.method == 'POST':
+
         if patient_registration_form.is_valid():
             patient_registration_form.save_user()
+            service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+            emailMsg = 'Bem vindo a nossa plataforma medline para realizar sua consulta logue na plataforma!'
+            mimeMessage = MIMEMultipart()
+            destino = request.POST.get("email")
+            mimeMessage['to'] = f'{destino}'
+            mimeMessage['subject'] = 'Cadastro de Paciente realizado com sucesso!'
+            mimeMessage.attach(MIMEText(emailMsg, 'plain'))
+            raw_string = base64.urlsafe_b64encode(mimeMessage.as_bytes()).decode()
+
+            message = service.users().messages().send(userId='me', body={'raw': raw_string}).execute()
+            print(message)
             
             try:
                 username = request.POST.get("username")
@@ -58,7 +80,7 @@ def register_patient(request):
                     return redirect('consultas')
             except:
                 return redirect('home')
-       
+               
     return render(request, 'patient_registration_form.html', context)
 
 
@@ -66,10 +88,23 @@ def register_patient(request):
 
 def register_doctor(request):
     doctor_registration_form = doctorRegistration(request.POST or None)
+    
     context = {'doctor_registration_form': doctor_registration_form}
     if request.method == 'POST':
+        
         if doctor_registration_form.is_valid():
             doctor_registration_form.save_user()
+            service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+            emailMsg = 'Bem vindo a nossa plataforma medline para realizar sua consulta logue na plataforma!'
+            mimeMessage = MIMEMultipart()
+            destino = request.POST.get("email")
+            mimeMessage['to'] = f'{destino}'
+            mimeMessage['subject'] = 'Cadastro de Medico realizado com sucesso'
+            mimeMessage.attach(MIMEText(emailMsg, 'plain'))
+            raw_string = base64.urlsafe_b64encode(mimeMessage.as_bytes()).decode()
+
+            message = service.users().messages().send(userId='me', body={'raw': raw_string}).execute()
+            print(message)
             
             try:
                 username = request.POST.get("username")
@@ -77,7 +112,7 @@ def register_doctor(request):
                 user = authenticate(request, username=username, password=password)
                 if user:
                     login(request, user)
-                    return redirect('consultas')
+                    return redirect('especialidades_medicas')
             except:
                 return redirect('home')
        

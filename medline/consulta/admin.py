@@ -8,22 +8,42 @@ from consulta.models import *
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('username', 'get_full_name')
-    fields = (('is_active', 'is_staff', 'is_admin', 'is_superuser'), 'username', ('first_name', 'last_name'),
-               'email', 'date_joined', 'last_login', 'password')
+    fields = (('is_active', 'is_staff', 'is_admin', 'is_superuser'),
+            ('username'), ('password'),
+            ('first_name', 'last_name'),
+            ('email'),
+            ('date_joined'), ('last_login'))
 
 admin.site.register(User, UserAdmin)
 
 
 class PacientesAdmin(admin.ModelAdmin):
-    readonly_fields = ['birth', 'cpf']
+    fields = (
+             'is_active',
+             'username', 
+             'password',
+             ('first_name', 'last_name'),
+             'email',
+             'birth', 
+             'cpf',
+            )
 
-admin.site.register(Pacientes)
+admin.site.register(Pacientes, PacientesAdmin)
 
 
 class MedicosAdmin(admin.ModelAdmin):
-    readonly_fields = ['birth', 'cpf',  'crm', 'localidade', 'foto']
-
-admin.site.register(Medicos)
+    fields = (
+                'is_active',
+                'username', 
+                'password',
+                ('first_name', 'last_name'),
+                'email',
+                'birth', 
+                'cpf',
+                'crm',
+                'foto',              
+                )
+admin.site.register(Medicos, MedicosAdmin)
 
 
 admin.site.register(Especialidades)
