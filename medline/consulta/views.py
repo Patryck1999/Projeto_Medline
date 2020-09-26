@@ -14,6 +14,8 @@ import json
 # ------------------------------ Login / Logout
 
 def login_request(request):
+    pacientes = Pacientes()
+    # print(dir(pacientes))
     context = {}
     form = UserLogin(request.POST or None)
     if request.POST:
@@ -22,7 +24,13 @@ def login_request(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return redirect('consultas')
+            try:
+                if request.user.pacientes.role == 'paciente':
+                    return redirect('consultas')
+            except: 
+                if request.user.medicos.role == 'medico':
+                    return redirect('especialidades_medicas')
+            
     context['form'] = form
     return render(request, 'login.html', context)
 
@@ -67,7 +75,7 @@ def register_doctor(request):
                 username = request.POST.get("username")
                 password = request.POST.get("password")
                 user = authenticate(request, username=username, password=password)
-                if user.pacient :
+                if user:
                     login(request, user)
                     return redirect('consultas')
             except:
