@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -31,26 +32,44 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'consultas' %}">Consultas<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'especialidades' %}">Especialidades <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'cidades' %}">Cidades <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'especialidades_medicas' %}">Especialidades Medicas <span class="sr-only">(current)</span></a>
-                    </li>
+
+                    {% if request.user.pacientes.role == 'paciente' %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'consultas' %}">Consultas<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'especialidades' %}">Especialidades <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'cidades' %}">Cidades <span class="sr-only">(current)</span></a>
+                        </li>
+                    {% elif request.user.medicos.role == 'medico' %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'especialidades_medicas' %}">Especialidades Medicas <span class="sr-only">(current)</span></a>
+                        </li>
+                    {% endif %}
 
                 </ul>
+                
                 <div class="form-inline my-2 my-lg-0">
-                    <a href="{% url 'logout_request' %}" class="btn btn-warning" id="logout">logout</a>
+                    
+                    {% if request.user.medicos.role == 'medico' %}
+                        <img class="foto_usuario" src="{{request.user.medicos.imageURL}}">
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'logout_request' %}" class="btn btn-warning" id="logout">logout</a>
+
+                    {% else %}
+                    <a href="{% url 'login_request' %}" class="btn btn-warning" id="logout">Entrar</a>
+
+                    {% endif %}
+
+                    {% if request.user.pacientes.role == 'paciente' %}
                     <a href="{% url 'carrinho' %}">
                         <img id="cart-icon" src="{% static 'imagens/cart.png' %}">
                     </a>
                     <p id="cart-total">{{ cartItems }}</p>
+                    {% endif %}
                 </div>
             </div><!--/Collapse-->
 

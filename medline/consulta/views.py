@@ -24,7 +24,6 @@ SCOPES = ['https://mail.google.com/']
 
 def login_request(request):
     pacientes = Pacientes()
-    # print(dir(pacientes))
     context = {}
     form = UserLogin(request.POST or None)
     if request.POST:
@@ -36,6 +35,7 @@ def login_request(request):
             try:
                 if request.user.pacientes.role == 'paciente':
                     return redirect('consultas')
+
             except: 
                 if request.user.medicos.role == 'medico':
                     return redirect('especialidades_medicas')
@@ -52,11 +52,9 @@ def logout_request(request):
 # ------------------------------ CRUD Patient
 
 def register_patient(request):
-    patient_registration_form = patientRegistration(request.POST or None)
     
-    context = {'patient_registration_form': patient_registration_form}
     if request.method == 'POST':
-
+        patient_registration_form = patientRegistration(request.POST or None)
         if patient_registration_form.is_valid():
             patient_registration_form.save_user()
             service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
@@ -80,18 +78,18 @@ def register_patient(request):
                     return redirect('consultas')
             except:
                 return redirect('home')
-               
+    else:
+        patient_registration_form = patientRegistration()
+    context = {'patient_registration_form': patient_registration_form}
+    
     return render(request, 'patient_registration_form.html', context)
 
 
 # ------------------------------ CRUD Doctor 
 
-def register_doctor(request):
-    doctor_registration_form = doctorRegistration(request.POST or None)
-    
-    context = {'doctor_registration_form': doctor_registration_form}
+def register_doctor(request):    
     if request.method == 'POST':
-        
+        doctor_registration_form = doctorRegistration(request.POST or None, request.FILES)  
         if doctor_registration_form.is_valid():
             doctor_registration_form.save_user()
             service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
@@ -115,7 +113,10 @@ def register_doctor(request):
                     return redirect('especialidades_medicas')
             except:
                 return redirect('home')
-       
+    else:
+        doctor_registration_form = doctorRegistration()
+    context = {'doctor_registration_form': doctor_registration_form} 
+
     return render(request, 'doctor_registration_form.html', context)
 
 

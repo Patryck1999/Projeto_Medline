@@ -46,17 +46,9 @@ class doctorRegistration(forms.ModelForm):
 
     class Meta:
         model = Medicos
-        fields = [
-            'username',
-            'password',
-            'first_name',
-            'last_name',
-            'email',
-            'birth',
-            'cpf',
-            'crm',
-            'foto',
-        ]
+        fields = '__all__'
+        exclude = ['user_permissions','groups', 'last_login','is_staff', 'is_active', 'is_admin',
+                   'is_superuser', 'date_joined','role']
 
         widgets = {
             'username': forms.TextInput(attrs={'class': 'inputs', 'placeholder': 'Insira seu nome de usuário'}),
@@ -67,7 +59,7 @@ class doctorRegistration(forms.ModelForm):
             'birth': forms.TextInput(attrs={'class': 'inputs', 'type': 'date', 'title': 'Data de Nascimento'}),
             'cpf': forms.TextInput(attrs={'class': 'inputs', 'placeholder': 'CPF'}),
             'crm': forms.TextInput(attrs={'class': 'inputs', 'placeholder': 'CRM'}),
-            'foto': forms.TextInput(attrs={'class': 'inputs','type': 'file'}),
+            'foto': forms.FileInput(attrs={'class': 'inputs'}),
         }
 
 

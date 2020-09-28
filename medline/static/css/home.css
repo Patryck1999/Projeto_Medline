@@ -71,6 +71,9 @@ div.ipt-wd{
 
 	margin: 10px !important;
 }
+.cadastrar:hover{
+	cursor: pointer;
+}
 
 div.apresentation{
 	display: flex;
