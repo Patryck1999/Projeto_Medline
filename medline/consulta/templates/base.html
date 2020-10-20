@@ -1,18 +1,16 @@
 {% load static %}
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
     {% block links %} {% endblock %}
 
@@ -21,10 +19,17 @@
 </head>
 
 <body>
-    
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            
-            <a class="navbar-brand" href="{% url 'home' %}">Medline</a>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            {% if request.user.pacientes.role == 'medico' %}
+                <a class="navbar-brand" href="#">
+                    <img src="{% static 'imagens/doctor_perfil.png' %}" width="30" height="30" class="d-inline-block align-top"
+                        alt="doctor" loading="lazy">
+                    Medline Médicos
+                </a>
+            {% else %}
+                <a class="navbar-brand" href="{% url 'home' %}">Medline</a>
+            {% endif %}
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -34,31 +39,45 @@
                 <ul class="navbar-nav mr-auto">
 
                     {% if request.user.pacientes.role == 'paciente' %}
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'consultas' %}">Consultas<span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'especialidades' %}">Especialidades <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'cidades' %}">Cidades <span class="sr-only">(current)</span></a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link consultas-paciente" href="{% url 'consultas' %}">Consultas<span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link especialidade" href="{% url 'especialidades' %}">Especialidades <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cidade" href="{% url 'cidades' %}">Cidades <span
+                                class="sr-only">(current)</span></a>
+                    </li>
                     {% elif request.user.medicos.role == 'medico' %}
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'especialidades_medicas' %}">Especialidades Medicas <span class="sr-only">(current)</span></a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'perfil_medico' %}">Perfil<span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link consultas-medico" href="{% url 'consultas_medicas' %}">Consultas</a>
+                    </li>
                     {% endif %}
 
                 </ul>
-                
+
                 <div class="form-inline my-2 my-lg-0">
-                    
+
                     {% if request.user.medicos.role == 'medico' %}
-                        <img class="foto_usuario" src="{{request.user.medicos.imageURL}}">
+                    <img class="foto_usuario" src="{{request.user.medicos.imageURL}}">
                     {% endif %}
                     {% if user.is_authenticated %}
-                        <a href="{% url 'logout_request' %}" class="btn btn-warning" id="logout">logout</a>
-
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            {{request.user}}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'logout_request' %}">logout</a>
+                        </div>
+                    </div>
                     {% else %}
                     <a href="{% url 'login_request' %}" class="btn btn-warning" id="logout">Entrar</a>
 
@@ -71,10 +90,12 @@
                     <p id="cart-total">{{ cartItems }}</p>
                     {% endif %}
                 </div>
-            </div><!--/Collapse-->
+            </div>
+            <!--/Collapse-->
 
-        </nav><!--NavBar-->
-    
+        </nav>
+        <!--NavBar-->
+    </header>
 
 
     <!--Content-->
@@ -90,12 +111,19 @@
     {% endblock %}
     <!--/Footer-->
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
     <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
-    
-        <script type="text/javascript">
+
+
+    <script type="text/javascript">
         var user = '{{ request.user }}'
 
         function getToken(name) {
@@ -115,9 +143,10 @@
         }
         var csrftoken = getToken('csrftoken');
     </script>
-    {% block scripts %} 
-    
+    {% block scripts %}
+
     {% endblock %}
+
 </body>
 
 </html>

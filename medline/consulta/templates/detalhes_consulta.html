@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+<title>{% block title %}Detalhes da Consulta{% endblock %}</title>
+{% block links %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/detalhes_medico.css' %}">
+
+<link rel="icon" type="imagem/png" href="https://prnt.sc/sdykgy" />
+{% endblock %}
+{% block main %}
+<div class="row col-md-12">
+    <div class="col-lg-6">
+        <div class="detalhes">
+            <h3 style="text-align: center;text-decoration: underline; margin-bottom: 1em;">Detalhes da consulta</h3>
+            <ul>
+                <div style="float:left;margin-right:10px;margin-bottom:10px;"><img
+                        src="{{ medicos_especialidades_all.id_medico.imageURL}}"></div>
+                <div style="margin-left: 5em;">
+                    <label>Nome do Medico:</label>
+                    <li>{{medicos_especialidades_all.id_medico}}</li>
+                    <label>Nome da especialidade:</label>
+                    <li>{{medicos_especialidades_all.id_especialidade}}</li>
+                    <label>Preço da consulta:</label>
+                    <li style="margin-bottom: 2em;">{{medicos_especialidades_all.preco}}</li>
+                </div>
+                {% for item in localidades %}
+                <label>Localidade:</label>
+
+                <li><span name="endereco">{{item.rua}}, {{item.bairro}}, {{item.cidade}}, {{item.estado}}, {{item.cep}}</span></li>
+
+
+                {% endfor %}
+            </ul>
+
+        </div>
+
+    </div>
+    <div class="col-lg-6">
+        <div class="detalhes" id="map">
+
+        </div>
+    </div>
+    {% block scripts %}
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js"></script>
+    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+    <script>
+    </script>
+    <script type="text/javascript" src="{% static 'js/mapa.js' %}"></script>
+
+    {% endblock %}
+    {% endblock main %}

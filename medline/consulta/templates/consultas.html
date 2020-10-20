@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 <title>{% block title %}Consultas{% endblock %}</title>
+{% block links %} 
+<link rel="stylesheet" type="text/css" href="{% static 'css/consultas.css' %}">
+
+{% endblock %}
 {% block main %}
     <h1>Consultas</h1>
         
@@ -39,10 +43,10 @@
         <div class="col-lg-4">
             <img class="thumbnail" src="{{m_e.id_medico.imageURL}}"></img>
             <div class="box-element product">
-                <h6><strong>{{m_e.id_medico}} - {{m_e.id_medico.localidade}} - {{m_e.id_especialidade}}</strong></h6>
+                <h6><strong>{{m_e.id_medico}} - {{m_e.id_especialidade}}</strong></h6>
                 <hr>
                 <button data-product= {{m_e.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Adicionar consulta</button>
-                <a class="btn btn-outile-sucess" href="#">Detalhes</a>
+                <a class="btn btn-outile-sucess" href="detalhes_consulta/{{m_e.id}}">Detalhes</a>
                 <h4 style="display: inline-block;float: right">R${{ m_e.preco|floatformat:2 }}</h4>
                </div>
             </div>

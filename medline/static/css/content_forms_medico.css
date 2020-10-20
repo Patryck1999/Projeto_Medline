@@ -1,0 +1,20 @@
+h3{
+    text-align: center;
+}
+
+.content-forms{
+	background: #007bff14;
+	margin: 20px 5px;
+	padding: 40px;
+}
+div.images-dt {
+	margin-top: -400px;
+	margin-right: 0px;
+  	margin-left: 0px;
+}
+.img-fluid {
+	width: 30%;
+}
+.btn {
+	border: 2px solid #46738c9e !important;
+}

@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+<title>{% block title %}Medline - Perfil Medico{% endblock %}</title>
+{% block links %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/content_forms_medico.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/perfil_medico.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+	<div class="row m-5">
+		<div class="content-forms col-7 mx-auto">
+			<h3>Perfil</h3>
+			<hr>
+			<form method="POST" action="{% url 'perfil_medico' %}" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div hidden class="input-group mb-3">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="inputGroupSelect01">Medico</label>
+					</div>
+					<select name="id_medico" class="custom-select" required id="id_id_medico">
+						<option value="{{request.user.medicos.id}}">{{request.user.medicos}}</option>
+					</select>
+
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="inputGroupSelect01">Especialidade</label>
+					</div>
+					{{ medicos_especialidades.id_especialidade }}
+
+				</div>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroup-sizing-default">$</span>
+					</div>
+					{{ medicos_especialidades.preco }}
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroup-sizing-default">Preço</span>
+
+					</div>
+
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroupFileAddon01">Certificação</span>
+					</div>
+					<div class="custom-file">
+						{{ medicos_especialidades.certificado_especialidade }}
+						<label class="custom-file-label" for="inputGroupFile01">Insira o arquivo (Opcional)</label>
+					</div>
+				</div>
+
+				<div hidden class="input-group mb-3">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="inputGroupSelect01">Medico</label>
+					</div>
+					<select name="user" class="custom-select" required id="id_user">
+						<option value="{{request.user.medicos.id}}">{{request.user.medicos}}</option>
+					</select>
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroup-sizing-default">CEP</span>
+					</div>
+					<input type="text" name="cep" class="form-control" maxlength="11" onblur="pesquisacep(this.value);"
+						required id="id_cep">
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroup-sizing-default">Rua</span>
+					</div>
+					{{localidade.rua}}
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroup-sizing-default">Bairro</span>
+					</div>
+					{{localidade.bairro}}
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroup-sizing-default">Cidade</span>
+					</div>
+					{{localidade.cidade}}
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroup-sizing-default">Estado</span>
+					</div>
+					{{localidade.estado}}
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroup-sizing-default">Complemento</span>
+					</div>
+					{{localidade.complemento}}
+				</div>
+				<input class="btn login_btn" type="submit" value="Continuar">
+
+			</form>
+
+		</div>
+	</div>
+</div>
+<div class="row images-dt">
+	<img src="{% static 'imagens/medical_doctors.png'  %}" class="img-fluid" alt="medicos">
+</div>
+{% block scripts %}
+<script type="text/javascript" src="{% static 'js/cep.js' %}"></script>
+{% endblock %}
+
+{% endblock main %}

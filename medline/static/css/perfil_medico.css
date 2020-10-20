@@ -1,0 +1,13 @@
+.perfil-medico {
+	font-size: 1.20rem;
+	color: #fff !important;
+	font-weight: 700;
+}
+li{
+    list-style: none;
+    margin-bottom: 0.5em;
+}
+
+li a{
+    cursor: pointer; float:right
+}

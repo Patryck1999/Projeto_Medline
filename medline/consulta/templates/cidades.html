@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 <title>{% block title %}Cidades{% endblock %}</title>
+{% block links %} 
+<link rel="stylesheet" type="text/css" href="{% static 'css/cidades.css' %}">
+
+{% endblock %}
 {% block main %}
-    <h1>Cidades trabalhadas</h1>
+    <h1>Cidades</h1>
     <form method="get">
                 <p>Cidade:</p>
                 <input type="text">
@@ -19,6 +23,4 @@
             </ul>
         </div>
     </div>
-
-   
 {% endblock main %}

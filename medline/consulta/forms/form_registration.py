@@ -4,7 +4,8 @@ from django import forms
 from django.contrib.auth.hashers import make_password
 
 from consulta.models_login import User
-from consulta.models import Pacientes, Medicos
+# from consulta.models import Pacientes, Medicos
+from consulta.models import *
 
 
 class patientRegistration(forms.ModelForm):
@@ -71,3 +72,47 @@ class doctorRegistration(forms.ModelForm):
             user.save()
 
         return user
+
+class medicosEspecialidades(forms.ModelForm):
+
+    class Meta:
+        model = Medicos_especialidade
+        fields = '__all__'
+        
+
+        widgets = {
+            'id_especialidade': forms.Select(attrs={'class': 'inputs', 'class': 'custom-select'}),
+            'preco': forms.TextInput(attrs={'class': 'inputs','class': 'form-control'}),
+            'certificado_especialidade': forms.FileInput(attrs={'class': 'inputs','class': 'custom-file-input', 'id':"inputGroupFile01" }),
+        }
+
+class agendasForm(forms.ModelForm):
+
+    class Meta:
+        model = Agendas
+        fields = '__all__'
+        
+
+        widgets = {
+            'id_medico': forms.Select(attrs={'class':'custom-select'}),
+            'id_especialidade': forms.Select(attrs={'class':'form-control'}),
+            'tipos_consulta': forms.Select(attrs={'class':'form-control'}),
+            'data': forms.TextInput(attrs={'class':'form-control', 'type': 'date'}),
+            'hora': forms.TextInput(attrs={'class':'form-control', 'type': 'time'}),
+        }
+
+class localidades(forms.ModelForm):
+
+    class Meta:
+        model = Localidades
+        fields = '__all__'
+        
+
+        widgets = {
+            'cep': forms.TextInput(attrs={'class': 'form-control'}),
+            'rua': forms.TextInput(attrs={'class': 'form-control'}),
+            'bairro': forms.TextInput(attrs={'class': 'form-control'}),
+            'cidade': forms.TextInput(attrs={'class': 'form-control'}),
+            'estado': forms.TextInput(attrs={'class': 'form-control'}),
+            'complemento': forms.TextInput(attrs={'class': 'form-control'}),
+        }

@@ -21,6 +21,7 @@
 		<div class="nav-bar">
 
 			<!-- Cadastro de login -->
+			{% if request.user.pacientes.role != 'paciente' and request.user.medicos.role != 'medico'%}
 			<button type="button" class="cadastrar btn btn-primary" data-toggle="modal" data-target="#cadastrar">
 				Cadastre-se
 			</button>
@@ -47,16 +48,16 @@
 					</div>
 				</div>
 			</div>
+			
 
 			<!-- LOGIN -->
 			
-
 			<a href="{% url 'login_request' %}">
 				<button type="button" class="cadastrar btn btn-primary">
 					Entrar
 				</button>
 			</a>
-
+			{% endif %}
 
 		</div>
 		<div class="container">
@@ -65,13 +66,21 @@
 					<h1>Medline</h1>
 					<h3>O Marketplace de consultas médicas</h1>
 				</div>
+				
 				<div class="apresentation-image">
 					<img class="doctor" src="{% static 'imagens/doctor.png' %}" alt="doctor-online">
 				</div>
 			</div>
+			{% if request.user.medicos.role != 'medico'%}
 			<div class="option">
 				<a class="option-confira" href="{% url 'consultas' %}">Confira agora mesmo!</a>
 			</div>
+			{% else %}
+			<div class="option">
+				<a class="option-confira" href="{% url 'consultas_medicas' %}">Agende sua consulta agora mesmo!</a>
+			</div>
+			{% endif %}
+
 			<div class="variedades">
 				<div class="row">
 					<img class="image-destaque" src="{% static 'imagens/custo_baixo.png' %}">

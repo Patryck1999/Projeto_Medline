@@ -47,8 +47,8 @@ admin.site.register(Medicos, MedicosAdmin)
 
 
 admin.site.register(Especialidades)
+admin.site.register(Localidades)
 admin.site.register(Agendas)
 admin.site.register(Medicos_especialidade)
-admin.site.register(Consultas)
 admin.site.register(Compras)
 admin.site.register(Compras_consulta)

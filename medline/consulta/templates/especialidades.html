@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 <title>{% block title %}Especialidades{% endblock %}</title>
+{% block links %} 
+<link rel="stylesheet" type="text/css" href="{% static 'css/especialidades.css' %}">
+
+{% endblock %}
+
 {% block main %}
     <div class="container">
-        <h1>Especialidades trabalhadas</h1>
+        <h1>Especialidades</h1>
     <form method="get">
                 <p>Especialidade:</p>
                 {{filtro_especialidade.form.especialidade}}

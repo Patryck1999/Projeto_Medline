@@ -153,23 +153,11 @@ class Especialidades(models.Model):
         verbose_name_plural = 'Especialidades'
     
 
-class Agendas(models.Model):
-    data = models.DateField()
-    hora = models.TimeField()
-
-    def __str__(self):
-        return str(self.data) + ' ' + str(self.hora)
-
-    class Meta:
-        verbose_name = 'Agenda'
-        verbose_name_plural = 'Agendas'
-
-
 class Medicos_especialidade(models.Model):
     id_medico = models.ForeignKey(Medicos, on_delete=models.SET_NULL, null=True)
     id_especialidade = models.ForeignKey(Especialidades, on_delete=models.SET_NULL, null=True)
-    certificado_especialidade = models.ImageField(null=True, blank=True)
     preco = models.DecimalField(max_digits=7, decimal_places=2)
+    certificado_especialidade = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return str(self.id)
@@ -178,20 +166,37 @@ class Medicos_especialidade(models.Model):
         verbose_name = 'Médico Por Especialidade'
         verbose_name_plural = 'Médicos Por Especialidade'
 
+class Localidades(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    cep = models.CharField(max_length=11, null=True)
+    rua = models.CharField(max_length=50, null=True)
+    bairro = models.CharField(max_length=50, null=True)
+    cidade = models.CharField(max_length=100, null=True)
+    estado = models.CharField(max_length=2, null=True)
+    complemento = models.CharField(max_length=30, null=True)
 
-class Consultas(models.Model):
-    id_medicos_especialidade = models.ForeignKey(Medicos_especialidade, on_delete=models.SET_NULL, null=True)
-    id_agenda = models.ForeignKey(Agendas, on_delete=models.SET_NULL, null=True)
-    tipos = [('Presencial', 'Presencial'), ('Digital', 'Digital')]
-    tipos_consulta = models.CharField(max_length=50, choices=tipos)
 
     def __str__(self):
         return str(self.id)
-    
-    class Meta:
-        verbose_name = 'Consulta'
-        verbose_name_plural = 'Consultas'
 
+    class Meta:
+        verbose_name = 'Localidade'
+        verbose_name_plural = 'Localidades'
+
+class Agendas(models.Model):
+    id_medico = models.ForeignKey(Medicos, on_delete=models.SET_NULL, null=True)
+    id_especialidade = models.ForeignKey(Especialidades, on_delete=models.SET_NULL, null=True)
+    tipos = [('Presencial', 'Presencial'), ('Digital', 'Digital')]
+    tipos_consulta = models.CharField(max_length=50, choices=tipos)
+    data = models.DateField()
+    hora = models.TimeField()
+
+    def __str__(self):
+        return str(self.id)
+
+    class Meta:
+        verbose_name = 'Agenda'
+        verbose_name_plural = 'Agendas'
 
 class Compras(models.Model):
     id_paciente = models.ForeignKey(Pacientes, on_delete=models.SET_NULL, null=True)
@@ -221,7 +226,7 @@ class Compras(models.Model):
 
 class Compras_consulta(models.Model):
     id_compra = models.ForeignKey(Compras, on_delete=models.SET_NULL, null=True)
-    id_consulta = models.ForeignKey(Consultas, on_delete=models.SET_NULL, null=True)
+    id_medicos_especialidade = models.ForeignKey(Medicos_especialidade, on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
 
 
@@ -231,9 +236,10 @@ class Compras_consulta(models.Model):
 
     @property
     def get_total(self):
-        total = self.id_consulta.id_medicos_especialidade.preco * self.quantity
+        total = self.id_medicos_especialidade.preco * self.quantity
         return total
 
     class Meta:
         verbose_name = 'Consulta Por Compra'
         verbose_name_plural = 'Consultas Por Compra'
+

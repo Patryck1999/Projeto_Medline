@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+<title>{% block title %}Medline - Consultas{% endblock %}</title>
+{% block links %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/content_forms_medico.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/consultas_medicas.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+	<div class="row m-5">
+		<div class="content-forms col-7 mx-auto">
+			<h3>Consultas</h3>
+			<hr>
+			<form method="POST" action="{% url 'consultas_medicas' %}">
+				{% csrf_token %}
+				<div hidden class="input-group mb-3">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="inputGroupSelect01">Medico</label>
+					</div>
+					<select name="id_medico" class="custom-select" required id="id_id_medico">
+						{% for item in medico_especialidade %}
+						<option value="{{item.id_medico.id}}">{{request.user.medicos}}</option>
+						{% endfor %}
+					</select>
+				</div>
+
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="inputGroupSelect01">Especialidade</label>
+					</div>
+					<select name="id_especialidade" class="custom-select" required id="id_id_especialidade">
+						{% for item in medico_especialidade %}
+						<option value="{{item.id_especialidade.id}}">{{item.id_especialidade}}</option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroup-sizing-default">Tipo da Consulta</span>
+					</div>
+					{{agendas_form.tipos_consulta}}
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroup-sizing-default">Data</span>
+					</div>
+					{{agendas_form.data}}
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroup-sizing-default">Hora</span>
+					</div>
+					{{agendas_form.hora}}
+				</div>
+
+				<div class="input-group mb-3">
+					<input class="btn login_btn" type="submit" value="Adicionar horario a agenda">
+				</div>
+
+
+			</form>
+			<h3>Horários adicionados para consulta</h3>
+			<hr>
+
+			{% regroup agendas_all by id_especialidade as lista_especialidades %}
+
+			<ul>
+				{% for id_especialidade in lista_especialidades %}
+				<li>{{ id_especialidade.grouper }}
+					<ul>
+						{% for item in id_especialidade.list %}
+						<li>
+							<span>{{item.data.day}}/{{item.data.month}}/{{item.data.year}} - {{item.hora}} -
+								{{item.tipos_consulta}}</span>
+							<a href="excluir_horario/{{item.id}}"><button>Excluir</button></a>
+						</li>
+						{% endfor %}
+					</ul>
+				</li>
+				{% endfor %}
+			</ul>
+
+			{% regroup cities by country as country_list %}
+
+			<ul>
+				{% for country in country_list %}
+				<li>{{ country.grouper }}
+					<ul>
+						{% for city in country.list %}
+						<li>{{ city.name }}: {{ city.population }}</li>
+						{% endfor %}
+					</ul>
+				</li>
+				{% endfor %}
+			</ul>
+
+			<div class="input-group mb-3">
+				<a class="btn btn-outline-dark" href="/">Ir para home</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row images-dt">
+	<img src="{% static 'imagens/medical_doctors.png' %}" class="img-fluid" alt="medicos">
+</div>
+{% endblock main %}
