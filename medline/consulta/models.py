@@ -202,6 +202,7 @@ class Compras(models.Model):
     id_paciente = models.ForeignKey(Pacientes, on_delete=models.SET_NULL, null=True)
     data_emissao = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=True)
+    transaction_id = models.CharField(max_length=200, null=True)
 
 
     def __str__(self):
@@ -243,3 +244,20 @@ class Compras_consulta(models.Model):
         verbose_name = 'Consulta Por Compra'
         verbose_name_plural = 'Consultas Por Compra'
 
+
+class Contato_paciente(models.Model):
+    id_paciente = models.ForeignKey(Pacientes, on_delete=models.SET_NULL, blank=True, null=True)
+    id_compra = models.ForeignKey(Compras, on_delete=models.SET_NULL, blank=True, null=True)
+    nome_completo = models.CharField(max_length=200, null=True)
+    email = rua = models.EmailField(max_length=200, null=True)
+    cep = models.CharField(max_length=200, null=True)
+    rua = models.CharField(max_length=200, null=True)
+    bairro = models.CharField(max_length=200, null=True)
+    cidade = models.CharField(max_length=200, null=True)
+    estado = models.CharField(max_length=200, null=True)
+    items_pedido = models.CharField(max_length=200, null=True)
+    total = models.CharField(max_length=200, null=True)
+    data_compra = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.id)

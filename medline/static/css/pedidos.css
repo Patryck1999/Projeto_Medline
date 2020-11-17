@@ -1,0 +1,25 @@
+.pedidos {
+	font-size: 1.20rem;
+	color: #fff !important;
+	font-weight: 700;
+}
+
+.col-lg-4, .col-lg-6, .col-lg-8, .col-lg-12{
+	margin-top: 10px;
+}
+
+.box-element{
+	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+	background-color: #fff;
+	border-radius: 4px;
+	padding: 10px;
+}
+
+.centro{
+	margin-top: 15px;
+}
+
+.link{
+	float:right;
+	margin: 5px;
+}

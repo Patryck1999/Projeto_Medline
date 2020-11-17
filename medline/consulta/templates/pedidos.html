@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+<title>{% block title %}Pedidos{% endblock %}</title>
+{% block main %}
+{% block links %} 
+<link rel="stylesheet" type="text/css" href="{% static 'css/pedidos.css' %}">
+{% endblock %}
+<div class="row col-md-12">
+    <div class="col-lg-12">
+        {% for dado in contato_paciente %}
+        
+        <div class="box-element">
+            <table class="table centro">
+                <tr>
+                    <th><h5 class="centro">Nºpedido: <strong>{{dado.id_compra}}</strong></h5></th>
+                    <th><h5 class="centro">Data: <strong>{{dado.data_compra.day}}/{{dado.data_compra.month}}/{{dado.data_compra.year}}</strong></h5></th>
+                    <th><h5 class="centro">Total: <strong>R${{dado.total}}</strong></h5></th>
+                    <th>
+                        <a class="btn btn-success link" href="detalhes_pedido/{{dado.id_compra}}">Detalhes do pedido</a>
+                    </th>
+                </tr>
+            </table>
+            <hr>
+            
+        </div>
+        <br>
+        {% endfor %}
+        
+    </div>
+    
+</div>
+{% endblock main %}

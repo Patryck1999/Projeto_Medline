@@ -12,7 +12,7 @@ from .filters import EspecialidadeFilter
 
 from django.http import JsonResponse
 import json
-
+import datetime
 
 from .Google import Create_Service
 import base64
@@ -23,6 +23,9 @@ API_NAME = 'gmail'
 API_VERSION = 'v1'
 SCOPES = ['https://mail.google.com/']
 
+import io
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
 
 # ------------------------------ Login / Logout
 
@@ -218,12 +221,19 @@ def consultas(request):
 
 
 def detalhes_consulta(request, id):
+    if request.user.is_authenticated:
+        paciente = request.user.pacientes
+        compras, created = Compras.objects.get_or_create(id_paciente=paciente, complete=False)
+        items = compras.compras_consulta_set.all()
+        cartItems = compras.get_cart_items
+
     medicos_especialidades_all = Medicos_especialidade.objects.get(id=id)
     medicos_especialidades_diferente = Medicos_especialidade.objects.all()
     medico = medicos_especialidades_all.id_medico.id
+    especialidade = medicos_especialidades_all.id_especialidade
     localidades = Localidades.objects.all().filter(user=medico)
-
-    context = {'medicos_especialidades_all':medicos_especialidades_all,
+    agenda = Agendas.objects.all().filter(id_medico=medico, id_especialidade=especialidade)
+    context = {'agenda':agenda,'cartItems':cartItems,'medicos_especialidades_all':medicos_especialidades_all,
                'localidades': localidades}
     
     return render(request, 'detalhes_consulta.html', context)
@@ -236,20 +246,32 @@ def excluir_horario(request, id):
 
 
 def especialidades(request):
+    if request.user.is_authenticated:
+        paciente = request.user.pacientes
+        compras, created = Compras.objects.get_or_create(id_paciente=paciente, complete=False)
+        items = compras.compras_consulta_set.all()
+        cartItems = compras.get_cart_items
+
     especialidades = Especialidades.objects.all()
     filtro_especialidade = EspecialidadeFilter(request.GET, queryset=especialidades)
     especialidades = filtro_especialidade.qs
 
-    context={'filtro_especialidade':filtro_especialidade,
+    context={'cartItems':cartItems,'filtro_especialidade':filtro_especialidade,
             'especialidades':especialidades
             }
     return render(request, 'especialidades.html', context)
 
 
 def cidades(request):
-    medicos = Medicos.objects.all()
+    if request.user.is_authenticated:
+        paciente = request.user.pacientes
+        compras, created = Compras.objects.get_or_create(id_paciente=paciente, complete=False)
+        items = compras.compras_consulta_set.all()
+        cartItems = compras.get_cart_items
+
+    localidades = Localidades.objects.all()
     
-    context={'medicos':medicos}
+    context={'cartItems':cartItems,'localidades':localidades}
     return render(request, 'cidades.html', context)
    
 
@@ -264,6 +286,65 @@ def carrinho(request):
     return render(request, 'carrinho.html', context)
 
 
+def checagem(request):
+    if request.user.is_authenticated:
+        paciente = request.user.pacientes
+        compras = Compras.objects.get(id_paciente=paciente, complete=False)
+        items = compras.compras_consulta_set.all()
+        cartItems = compras.get_cart_items
+
+
+    context = {'compras':compras,'items':items, 'cartItems':cartItems}
+    return render(request, 'checagem.html', context)
+
+def pedidos(request):
+    if request.user.is_authenticated:
+        paciente = request.user.pacientes
+        compras, created = Compras.objects.get_or_create(id_paciente=paciente, complete=False)
+        items = compras.compras_consulta_set.all()
+        cartItems = compras.get_cart_items
+
+    paciente = request.user.pacientes
+    contato_paciente = Contato_paciente.objects.all().filter(id_paciente=paciente)
+    context = {'cartItems':cartItems,'contato_paciente':contato_paciente}
+    return render(request, 'pedidos.html', context)
+
+def detalhes_pedido(request, id):
+    dados = Contato_paciente.objects.get(id_compra=id)
+    cabecalho = 'Medline - O marketpace de consultas médicas'
+    titulo = f'pedido_{str(dados.id_compra)}'
+    enfeite= 125 * '-'
+    subtitulo = 'Resumo do pedido'
+    data_compra = f'Data e hora da compra: {str(dados.data_compra.day)}/{str(dados.data_compra.month)}/{str(dados.data_compra.year)} {str(dados.data_compra.hour)}:{str(dados.data_compra.minute)}:{str(dados.data_compra.second)}'
+    items = dados.items_pedido
+    detalhes_total = "Total da Compra"
+    total = dados.total
+
+    buffer = io.BytesIO()
+
+    pdf = canvas.Canvas(buffer)
+
+    pdf.setTitle(titulo)
+    pdf.drawString(50, 830, cabecalho)
+    pdf.drawString(320, 830, data_compra)
+    pdf.drawString(50, 810, enfeite)
+    pdf.drawString(50, 800, subtitulo)
+    pdf.drawString(50, 780, items)
+    pdf.drawString(50, 760, detalhes_total)
+    pdf.drawString(50, 750, enfeite)
+    pdf.drawString(50, 740, total)
+
+    # Quando acabamos de inserir coisas no pdf
+    pdf.showPage()
+    pdf.save()
+
+    # Por fim, retornamos o buffer para o inicio do arquivo
+    buffer.seek(0)
+
+    # abre o PDF direto no navegador
+    return FileResponse(buffer, filename='pedido.pdf')
+
+
 def updateItem(request):
     data = json.loads(request.body)
     productId = data['productId']
@@ -272,7 +353,7 @@ def updateItem(request):
     compras, created = Compras.objects.get_or_create(id_paciente=pacientes, complete=False)
     medicos_especialidade = Medicos_especialidade.objects.get(id=productId)
     comprasItem, created = Compras_consulta.objects.get_or_create(id_compra=compras, id_medicos_especialidade=medicos_especialidade)
-
+    
     if action == 'add':
         comprasItem.quantity = 1
     elif action == 'remove':
@@ -283,3 +364,37 @@ def updateItem(request):
         comprasItem.delete()
 
     return JsonResponse('Item was added', safe=False)
+
+
+def processOrder(request):
+    transaction_id = datetime.datetime.now().timestamp()
+    data = json.loads(request.body)
+    lista = []
+    if request.user.is_authenticated:
+        paciente = request.user.pacientes
+        compras, created = Compras.objects.get_or_create(id_paciente=paciente, complete=False)
+        compras.transaction_id = transaction_id
+        compras.complete = True
+        items = compras.compras_consulta_set.all()
+        total = data['shipping']['total']
+        print(total)
+        for item in items:
+            lista.append(f'{item.id_medicos_especialidade.id_medico}, {item.id_medicos_especialidade.id_especialidade}, {item.id_medicos_especialidade.preco}')
+        print(lista)
+        
+    compras.save()
+
+    Contato_paciente.objects.create(
+        id_paciente=paciente,
+        id_compra=compras,
+        nome_completo=data['shipping']['nome'],
+        email=data['shipping']['email'],
+        cep=data['shipping']['cep'],
+        rua=data['shipping']['rua'],
+        bairro=data['shipping']['bairro'],
+        cidade=data['shipping']['cidade'],
+        estado=data['shipping']['estado'],
+        items_pedido=lista,
+        total=total,
+    )
+    return JsonResponse('Payment complete!', safe=False)

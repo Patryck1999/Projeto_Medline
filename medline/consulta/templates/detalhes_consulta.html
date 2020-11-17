@@ -25,10 +25,22 @@
                 {% for item in localidades %}
                 <label>Localidade:</label>
 
-                <li><span name="endereco">{{item.rua}}, {{item.bairro}}, {{item.cidade}}, {{item.estado}}, {{item.cep}}</span></li>
+                <li><span name="endereco">{{item.rua}}, {{item.bairro}}, {{item.cidade}}, {{item.estado}},
+                        {{item.cep}}</span></li>
 
 
                 {% endfor %}
+                <label>Horarios disponiveis:</label>
+                <select>
+                    {% for item in agenda %}
+
+                    <option>{{item.data.day}}/{{item.data.month}}/{{item.data.year}} -
+                        {{item.hora.hour}}:{{item.hora.minute}}</option>
+
+                    {% endfor %}
+                </select>
+                <br>
+                <button data-product= {{medicos_especialidades_all.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Adicionar consulta</button>
             </ul>
 
         </div>

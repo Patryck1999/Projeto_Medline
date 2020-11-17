@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
     {% block links %} {% endblock %}
 
@@ -22,13 +22,13 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             {% if request.user.pacientes.role == 'medico' %}
-                <a class="navbar-brand" href="#">
-                    <img src="{% static 'imagens/doctor_perfil.png' %}" width="30" height="30" class="d-inline-block align-top"
-                        alt="doctor" loading="lazy">
-                    Medline Médicos
-                </a>
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'imagens/doctor_perfil.png' %}" width="30" height="30"
+                    class="d-inline-block align-top" alt="doctor" loading="lazy">
+                Medline Médicos
+            </a>
             {% else %}
-                <a class="navbar-brand" href="{% url 'home' %}">Medline</a>
+            <a class="navbar-brand" href="{% url 'home' %}">Medline</a>
             {% endif %}
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,6 +49,10 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link cidade" href="{% url 'cidades' %}">Cidades <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link pedidos" href="{% url 'pedidos' %}">Pedidos <span
                                 class="sr-only">(current)</span></a>
                     </li>
                     {% elif request.user.medicos.role == 'medico' %}
@@ -101,7 +105,7 @@
     <!--Content-->
     {% block main %}
 
-    {% endblock %}
+    {% endblock main %}
     <!--/Content-->
 
 
