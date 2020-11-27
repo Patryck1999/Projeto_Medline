@@ -16,7 +16,6 @@ django-allauth==0.37.1
 django-bootstrap4==2.2.0
 django-cors-headers==2.4.0
 django-filter==2.3.0
-django-mapbox-location-field==1.6.3
 django-rest-auth==0.9.3
 djangorestframework==3.8.2
 filelock==3.0.12
@@ -50,6 +49,7 @@ pylint==2.6.0
 python-utils==2.4.0
 python3-openid==3.1.0
 pytz==2020.1
+reportlab==3.5.55
 requests==2.20.0
 requests-oauthlib==1.0.0
 rsa==4.6
