@@ -249,7 +249,7 @@ class Contato_paciente(models.Model):
     id_paciente = models.ForeignKey(Pacientes, on_delete=models.SET_NULL, blank=True, null=True)
     id_compra = models.ForeignKey(Compras, on_delete=models.SET_NULL, blank=True, null=True)
     nome_completo = models.CharField(max_length=200, null=True)
-    email = rua = models.EmailField(max_length=200, null=True)
+    email = models.EmailField(max_length=200, null=True)
     cep = models.CharField(max_length=200, null=True)
     rua = models.CharField(max_length=200, null=True)
     bairro = models.CharField(max_length=200, null=True)
