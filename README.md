@@ -1,5 +1,7 @@
 # Projeto_Medline
 
+O projeto medline é uma plataforma que foi desenvolvido pensando em dois publicos, o primeiro são os medicos com o meio de facilitar a oferecer seus serviços pela plataforma, já que muitas clinicas possuem muitos medicos ociosos esperando por um paciente, com este serviço na internet concerteza muitas pessoas se interessariam e por isso o nosso segundo publico que são os pacientes entram. Vimos que a um grande numero de pessoas que não conseguem encontrar um medico de custo baixo e acaba acontecendo de não ter muitas opções, agora com essa plataforma ele encontrara diversos medicos de diversas especialidades podendo escolher o de menor custo pra ele, portanto essa plataforma é uma medida para pessoas de baixa renda e medicos ociosos com disponibilidade de seus serviços.
+
 Instruções basicas para rodar o projeto:
 
 1 - Passo - *Criar VirtualEnv*
